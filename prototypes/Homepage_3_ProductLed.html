@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PayEvo - Homepage Proposal 3: ProductLed Speed-to-Value</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Open Sans', sans-serif; color: #333; line-height: 1.6; background: #fff; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; height: auto; display: block; }
+a { text-decoration: none; color: inherit; }
+
+:root {
+  --green: #4CAF50;
+  --green-dark: #3d8b40;
+  --green-light: #e8f5e9;
+  --blue: #2285D0;
+  --blue-light: #e3f2fd;
+  --dark: #1a1a2e;
+  --gray-50: #f8f9fa;
+  --gray-100: #f1f3f5;
+  --gray-200: #e9ecef;
+  --gray-500: #6c757d;
+  --gray-700: #495057;
+  --gray-900: #212529;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --shadow: 0 2px 16px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.10);
+  --shadow-xl: 0 20px 60px rgba(0,0,0,0.12);
+  --max-w: 1200px;
+}
+
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 16px 36px; border-radius: 50px; font-weight: 700;
+  font-size: 1rem; cursor: pointer; border: none; transition: all 0.3s;
+}
+.btn-primary { background: var(--green); color: #fff; }
+.btn-primary:hover { background: var(--green-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(76,175,80,0.35); }
+.btn-ghost { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(4px); }
+.btn-ghost:hover { background: rgba(255,255,255,0.25); }
+.btn-outline { background: transparent; color: var(--green); border: 2px solid var(--green); }
+.btn-outline:hover { background: var(--green); color: #fff; }
+.btn-lg { padding: 20px 48px; font-size: 1.1rem; }
+.section-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--green); margin-bottom: 16px;
+}
+.section-label::before { content: ''; width: 32px; height: 2px; background: var(--green); }
+.section-title {
+  font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800;
+  color: var(--gray-900); line-height: 1.2; margin-bottom: 16px;
+}
+.section-subtitle { font-size: 1.15rem; color: var(--gray-500); max-width: 600px; line-height: 1.7; }
+
+/* Proposal Badge */
+.proposal-badge {
+  position: fixed; top: 20px; right: 20px; z-index: 9999;
+  background: linear-gradient(135deg, var(--blue) 0%, #1565c0 100%);
+  color: #fff; padding: 12px 24px; border-radius: var(--radius);
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; box-shadow: var(--shadow-lg);
+}
+.proposal-badge span { opacity: 0.85; }
+
+/* Nav */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: transparent; padding: 0 24px; transition: all 0.3s;
+}
+nav.scrolled { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--gray-200); }
+nav .nav-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; height: 72px;
+}
+.logo { font-size: 1.6rem; font-weight: 800; letter-spacing: 2px; color: #fff; transition: color 0.3s; }
+nav.scrolled .logo { color: var(--gray-900); }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { font-size: 0.9rem; font-weight: 600; color: rgba(255,255,255,0.9); transition: all 0.3s; }
+nav.scrolled .nav-links a { color: var(--gray-700); }
+.nav-links a:hover { color: var(--green); }
+.nav-cta { display: flex; gap: 12px; align-items: center; }
+.nav-cta .login { font-size: 0.9rem; font-weight: 600; color: rgba(255,255,255,0.9); transition: color 0.3s; }
+nav.scrolled .nav-cta .login { color: var(--gray-700); }
+.nav-cta .btn { padding: 10px 24px; font-size: 0.9rem; }
+
+/* === HERO: Full-bleed with product demo === */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: center;
+  background: linear-gradient(160deg, var(--dark) 0%, #0f1a2e 60%, #162447 100%);
+  overflow: hidden; padding: 100px 0 80px;
+}
+.hero::before {
+  content: ''; position: absolute; top: -50%; right: -20%;
+  width: 800px; height: 800px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(76,175,80,0.12) 0%, transparent 60%);
+}
+.hero .container { position: relative; z-index: 2; text-align: center; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(76,175,80,0.15); border: 1px solid rgba(76,175,80,0.3);
+  padding: 8px 20px; border-radius: 50px;
+  font-size: 0.8rem; font-weight: 600; color: var(--green);
+  margin-bottom: 28px;
+}
+.hero h1 {
+  font-size: clamp(2.5rem, 5.5vw, 4rem); font-weight: 800;
+  color: #fff; line-height: 1.1; margin-bottom: 24px;
+  max-width: 800px; margin-left: auto; margin-right: auto;
+}
+.hero h1 .accent { color: var(--green); }
+.hero > .container > p {
+  font-size: 1.2rem; color: rgba(255,255,255,0.65);
+  max-width: 620px; margin: 0 auto 36px; line-height: 1.7;
+}
+.hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+.hero-micro {
+  display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+  font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 56px;
+}
+.hero-micro span { display: flex; align-items: center; gap: 6px; }
+.hero-micro svg { color: var(--green); }
+
+/* Product Screenshot */
+.hero-product {
+  position: relative; max-width: 960px; margin: 0 auto;
+  border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.hero-product img { width: 100%; }
+.product-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, var(--dark) 0%, transparent 40%);
+}
+
+/* Speed-to-Value Metrics */
+.speed-metrics {
+  display: flex; justify-content: center; gap: 48px;
+  margin-top: -40px; position: relative; z-index: 3;
+}
+.speed-card {
+  background: #fff; border-radius: var(--radius-lg); padding: 28px 36px;
+  box-shadow: var(--shadow-xl); text-align: center; min-width: 180px;
+  border: 1px solid var(--gray-200);
+}
+.speed-card .speed-num { font-size: 2.5rem; font-weight: 800; color: var(--green); line-height: 1; }
+.speed-card .speed-unit { font-size: 0.85rem; font-weight: 700; color: var(--gray-700); margin-top: 4px; }
+.speed-card .speed-label { font-size: 0.75rem; color: var(--gray-500); margin-top: 4px; }
+
+/* === Instant Value Section === */
+.value-section { padding: 120px 0 100px; background: #fff; }
+.value-section .container { text-align: center; }
+.value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 56px; text-align: left; }
+.value-card {
+  background: var(--gray-50); border-radius: var(--radius-lg);
+  padding: 36px; border: 1px solid var(--gray-200); transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+.value-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--green); }
+.value-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: var(--green); transform: scaleX(0); transition: transform 0.3s;
+  transform-origin: left;
+}
+.value-card:hover::before { transform: scaleX(1); }
+.value-card .icon {
+  width: 56px; height: 56px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; margin-bottom: 20px;
+}
+.value-card .icon.g { background: var(--green-light); color: var(--green); }
+.value-card .icon.b { background: var(--blue-light); color: var(--blue); }
+.value-card .icon.p { background: #f3e5f5; color: #8e24aa; }
+.value-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--gray-900); margin-bottom: 10px; }
+.value-card p { font-size: 0.95rem; color: var(--gray-500); line-height: 1.7; }
+
+/* === Product Demo / How It Works === */
+.demo-section { padding: 100px 0; background: var(--gray-50); }
+.demo-section .container { text-align: center; }
+.demo-steps {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+  margin-top: 56px;
+}
+.demo-step {
+  background: #fff; border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: var(--shadow); border: 1px solid var(--gray-200);
+  transition: all 0.3s;
+}
+.demo-step:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+.demo-step-img { height: 220px; overflow: hidden; }
+.demo-step-img img { width: 100%; height: 100%; object-fit: cover; }
+.demo-step-content { padding: 28px; }
+.demo-step-num {
+  display: inline-flex; width: 32px; height: 32px;
+  align-items: center; justify-content: center;
+  background: var(--green); color: #fff; border-radius: 50%;
+  font-size: 0.85rem; font-weight: 700; margin-bottom: 12px;
+}
+.demo-step-content h4 { font-size: 1.1rem; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
+.demo-step-content p { font-size: 0.9rem; color: var(--gray-500); line-height: 1.6; }
+.demo-step-content .time-badge {
+  display: inline-block; margin-top: 12px;
+  background: var(--green-light); color: var(--green);
+  padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;
+}
+
+/* === Who It Is For === */
+.audience-section { padding: 100px 0; background: #fff; }
+.audience-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: center;
+}
+.audience-img { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); }
+.audience-img img { width: 100%; height: 480px; object-fit: cover; }
+.audience-list { list-style: none; margin-top: 28px; }
+.audience-list li {
+  display: flex; gap: 16px; margin-bottom: 24px; align-items: flex-start;
+}
+.audience-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: var(--green-light); color: var(--green);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.audience-text h4 { font-size: 1rem; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
+.audience-text p { font-size: 0.9rem; color: var(--gray-500); line-height: 1.6; }
+
+/* === Social Proof === */
+.proof-section { padding: 100px 0; background: var(--gray-50); }
+.proof-section .container { text-align: center; }
+.proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 56px; text-align: left; }
+.proof-card {
+  background: #fff; border-radius: var(--radius-lg); padding: 32px;
+  border: 1px solid var(--gray-200);
+}
+.proof-card .stars { color: #f9a825; margin-bottom: 12px; letter-spacing: 2px; }
+.proof-card blockquote { font-size: 0.95rem; color: var(--gray-700); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+.proof-card .author { display: flex; align-items: center; gap: 12px; }
+.proof-card .author-img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+.proof-card .author-info strong { display: block; font-size: 0.85rem; color: var(--gray-900); }
+.proof-card .author-info span { font-size: 0.8rem; color: var(--gray-500); }
+
+/* === Inline CTA Band === */
+.cta-band {
+  padding: 80px 0;
+  background: linear-gradient(135deg, var(--dark) 0%, #162447 100%);
+  text-align: center; color: #fff;
+}
+.cta-band h2 { font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800; margin-bottom: 16px; }
+.cta-band p { font-size: 1.1rem; color: rgba(255,255,255,0.65); margin-bottom: 32px; max-width: 560px; margin-left: auto; margin-right: auto; }
+.cta-band .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.cta-band .micro-text { margin-top: 20px; font-size: 0.85rem; color: rgba(255,255,255,0.4); }
+
+/* === FAQ === */
+.faq-section { padding: 100px 0; background: #fff; }
+.faq-section .container { max-width: 800px; }
+.faq-list { margin-top: 48px; }
+.faq-item { border-bottom: 1px solid var(--gray-200); }
+.faq-q {
+  width: 100%; background: none; border: none; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 0; font-size: 1.05rem; font-weight: 600;
+  color: var(--gray-900); text-align: left; font-family: inherit;
+}
+.faq-q::after { content: '+'; font-size: 1.5rem; color: var(--green); transition: transform 0.3s; }
+.faq-item.open .faq-q::after { content: '-'; }
+.faq-a {
+  max-height: 0; overflow: hidden; transition: max-height 0.3s, padding 0.3s;
+  font-size: 0.95rem; color: var(--gray-500); line-height: 1.7;
+}
+.faq-item.open .faq-a { max-height: 200px; padding-bottom: 24px; }
+
+/* === Footer === */
+footer { background: var(--dark); color: rgba(255,255,255,0.6); padding: 60px 0 32px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+.footer-brand .logo { color: #fff; margin-bottom: 16px; }
+.footer-brand p { font-size: 0.9rem; line-height: 1.7; max-width: 300px; }
+.footer-col h5 { color: #fff; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+.footer-col a { display: block; font-size: 0.9rem; margin-bottom: 12px; color: rgba(255,255,255,0.6); transition: color 0.2s; }
+.footer-col a:hover { color: var(--green); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; font-size: 0.8rem; }
+.canadian-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); padding: 8px 16px; border-radius: 50px; font-size: 0.8rem; color: rgba(255,255,255,0.8); margin-top: 16px; }
+
+@media (max-width: 768px) {
+  .speed-metrics { flex-direction: column; align-items: center; gap: 16px; }
+  .value-grid, .proof-grid, .demo-steps { grid-template-columns: 1fr; }
+  .audience-grid { grid-template-columns: 1fr; gap: 40px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .nav-links { display: none; }
+  .hero { min-height: auto; padding: 120px 0 60px; }
+}
+</style>
+</head>
+<body>
+
+<div class="proposal-badge">Proposal 3 <span>// ProductLed Speed-to-Value</span></div>
+
+<!-- Nav (transparent, becomes white on scroll) -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <div class="logo">PAYEVO</div>
+    <div class="nav-links">
+      <a href="#">Payroll</a>
+      <a href="#">Pricing</a>
+      <a href="#">Resources</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#" class="login">Log In</a>
+      <a href="#" class="btn btn-primary">Start Free</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero: Full-bleed dark with Product as the Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      Run Your First Payroll in Under 5 Minutes
+    </div>
+    <h1>Run Payroll for Your Canadian Business <span class="accent">in Under 5 Minutes</span></h1>
+    <p>PayEvo automates tax calculations, CRA filings, and direct deposits -- so you can stop wrestling with payroll and start growing your business. Free to start.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn btn-primary btn-lg">
+        Start Free -- Run Your First Payroll Today
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-micro">
+      <span><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Free forever for up to 3 employees</span>
+      <span><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> No credit card required</span>
+      <span><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Setup in minutes</span>
+    </div>
+    <!-- Product Screenshot as Hero -->
+    <div class="hero-product">
+      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80" alt="PayEvo dashboard showing payroll interface">
+      <div class="product-overlay"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Speed-to-Value Metrics -->
+<section style="background: #fff; padding-bottom: 80px;">
+  <div class="speed-metrics">
+    <div class="speed-card">
+      <div class="speed-num">5</div>
+      <div class="speed-unit">Minutes</div>
+      <div class="speed-label">Setup time</div>
+    </div>
+    <div class="speed-card">
+      <div class="speed-num">3</div>
+      <div class="speed-unit">Clicks</div>
+      <div class="speed-label">To run payroll</div>
+    </div>
+    <div class="speed-card">
+      <div class="speed-num">Auto</div>
+      <div class="speed-unit">Tax Filing</div>
+      <div class="speed-label">CRA compliant</div>
+    </div>
+    <div class="speed-card">
+      <div class="speed-num">Free</div>
+      <div class="speed-unit">To Start</div>
+      <div class="speed-label">Up to 3 employees</div>
+    </div>
+  </div>
+</section>
+
+<!-- Instant Value: What You Get -->
+<section class="value-section">
+  <div class="container">
+    <div class="section-label">Everything You Need</div>
+    <h2 class="section-title">Payroll That Works the Moment You Sign Up</h2>
+    <p class="section-subtitle" style="margin: 0 auto;">No lengthy onboarding. No implementation fees. Create an account and run payroll today.</p>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="icon g">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+        </div>
+        <h3>Automatic Tax Calculations</h3>
+        <p>Federal and provincial taxes calculated instantly. CPP, EI, and source deductions -- all handled by our in-house engine.</p>
+      </div>
+      <div class="value-card">
+        <div class="icon b">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+        </div>
+        <h3>Direct Deposit in One Click</h3>
+        <p>Pay your team directly to their bank accounts. Review, approve, done. Employees see deposits within 1-2 business days.</p>
+      </div>
+      <div class="value-card">
+        <div class="icon p">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        </div>
+        <h3>CRA Filing on Autopilot</h3>
+        <p>T4s, ROEs, source deductions, and remittances -- filed automatically. You never have to touch a CRA portal again.</p>
+      </div>
+      <div class="value-card">
+        <div class="icon g">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <h3>Employee Self-Service</h3>
+        <p>Employees access pay stubs, T4s, and tax documents on their own. Less email for you, more transparency for them.</p>
+      </div>
+      <div class="value-card">
+        <div class="icon b">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/></svg>
+        </div>
+        <h3>Multi-Province Ready</h3>
+        <p>Employees in different provinces? All tax jurisdictions handled automatically in one account. No add-ons needed.</p>
+      </div>
+      <div class="value-card">
+        <div class="icon p">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </div>
+        <h3>Human Support, Always</h3>
+        <p>NPI-certified payroll specialists on extended hours. When a real question comes up, a real person answers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works: 3-step visual -->
+<section class="demo-section">
+  <div class="container">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">From Sign-Up to Payroll in Three Steps</h2>
+    <p class="section-subtitle" style="margin: 0 auto;">No IT team needed. No onboarding calls. Just sign up and go.</p>
+    <div class="demo-steps">
+      <div class="demo-step">
+        <div class="demo-step-img">
+          <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&q=80" alt="Person signing up on laptop">
+        </div>
+        <div class="demo-step-content">
+          <div class="demo-step-num">1</div>
+          <h4>Create Your Account</h4>
+          <p>Enter your email, company name, and CRA business number. That is it -- your payroll workspace is ready.</p>
+          <div class="time-badge">2 minutes</div>
+        </div>
+      </div>
+      <div class="demo-step">
+        <div class="demo-step-img">
+          <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&q=80" alt="Team onboarding">
+        </div>
+        <div class="demo-step-content">
+          <div class="demo-step-num">2</div>
+          <h4>Add Your Employees</h4>
+          <p>Import from CSV or add manually. PayEvo auto-detects provinces and configures tax settings for each employee.</p>
+          <div class="time-badge">2 minutes</div>
+        </div>
+      </div>
+      <div class="demo-step">
+        <div class="demo-step-img">
+          <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&q=80" alt="Business owner happy at desk">
+        </div>
+        <div class="demo-step-content">
+          <div class="demo-step-num">3</div>
+          <h4>Run Payroll</h4>
+          <p>Review the summary, click approve, and your team gets paid. Taxes filed. Deposits sent. You are done.</p>
+          <div class="time-badge">1 minute</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Who It Is For -->
+<section class="audience-section">
+  <div class="container">
+    <div class="audience-grid">
+      <div class="audience-img">
+        <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&q=80" alt="Small business owner in their shop">
+      </div>
+      <div>
+        <div class="section-label">Built for You</div>
+        <h2 class="section-title">Perfect for Canadian SMBs with 20-50 Employees</h2>
+        <p class="section-subtitle">Whether you are a restaurant group, tech startup, or professional services firm -- if you have employees in Canada, PayEvo is built for you.</p>
+        <ul class="audience-list">
+          <li>
+            <div class="audience-icon">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            </div>
+            <div class="audience-text">
+              <h4>Small Business Owners</h4>
+              <p>Stop spending Friday nights on payroll. Set it up once and let PayEvo handle the rest.</p>
+            </div>
+          </li>
+          <li>
+            <div class="audience-icon">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            </div>
+            <div class="audience-text">
+              <h4>Growing Startups</h4>
+              <p>Start free, scale when you are ready. No contracts, no penalties, no VC-inflated pricing.</p>
+            </div>
+          </li>
+          <li>
+            <div class="audience-icon">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <div class="audience-text">
+              <h4>Multi-Province Teams</h4>
+              <p>Employees across Canada? All jurisdictions handled in one account. No add-ons, no complexity.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Social Proof -->
+<section class="proof-section">
+  <div class="container">
+    <div class="section-label">Customer Stories</div>
+    <h2 class="section-title">20,000+ Businesses Already Running on PayEvo</h2>
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"I signed up at 8am and ran payroll for my team of 30 before lunch. Zero issues, zero confusion. This is how software should work."</blockquote>
+        <div class="author">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt="Mark" class="author-img">
+          <div class="author-info"><strong>Mark T.</strong><span>CEO, tech startup -- Montreal</span></div>
+        </div>
+      </div>
+      <div class="proof-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"The free tier let me test everything before committing. By the time I upgraded, I already knew PayEvo was perfect for us. No risk at all."</blockquote>
+        <div class="author">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80" alt="Nicole" class="author-img">
+          <div class="author-info"><strong>Nicole W.</strong><span>Founder, design agency -- Vancouver</span></div>
+        </div>
+      </div>
+      <div class="proof-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"We went from 6 hours of payroll admin every two weeks to 15 minutes. The ROI paid for itself on day one. Honestly, it is embarrassing how long we waited to switch."</blockquote>
+        <div class="author">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Raj" class="author-img">
+          <div class="author-info"><strong>Raj P.</strong><span>COO, hospitality group -- Toronto</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Band -->
+<section class="cta-band">
+  <div class="container">
+    <h2>Your Next Payroll Run Is 5 Minutes Away</h2>
+    <p>Join 20,000+ Canadian businesses. Free forever for up to 3 employees. No credit card. No commitment. No reason not to try.</p>
+    <div class="cta-group">
+      <a href="#" class="btn btn-primary btn-lg">
+        Start Free Right Now
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#" class="btn btn-ghost">Watch 2-Min Demo</a>
+    </div>
+    <p class="micro-text">Setup in under 5 minutes. Cancel anytime.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container" style="text-align: center;">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">Got Questions?</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is PayEvo really free?</button>
+        <div class="faq-a">Yes. PayEvo is free forever for businesses with up to 3 employees. No trial period, no feature restrictions, no credit card required. Upgrade only when your team grows.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">How long does it take to switch from my current provider?</button>
+        <div class="faq-a">Most businesses are fully migrated within one pay cycle. You can run both providers in parallel to ensure a smooth transition. Our team helps with data import at no extra charge.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">Does PayEvo handle all provinces?</button>
+        <div class="faq-a">Yes. PayEvo supports all Canadian provinces and territories, including Quebec. Our in-house tax engine handles all provincial differences automatically.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="this.parentElement.classList.toggle('open')">What if I need help during a payroll run?</button>
+        <div class="faq-a">Our NPI-certified payroll specialists are available during extended hours. Call or email and you will get a real human who understands Canadian payroll -- not a chatbot.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">PAYEVO</div>
+        <p>Run payroll for your Canadian business in under 5 minutes. Free to start, built for SMBs, backed by 20+ years of expertise.</p>
+        <div class="canadian-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#e53935"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/></svg>
+          Proudly Canadian Since 2004
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="#">Payroll</a><a href="#">HR Management</a><a href="#">Benefits</a><a href="#">Tax Filing</a><a href="#">Pricing</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="#">About Us</a><a href="#">Careers</a><a href="#">Blog</a><a href="#">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h5>Support</h5>
+        <a href="#">Help Centre</a><a href="#">Payroll Guides</a><a href="#">CRA Resources</a><a href="#">System Status</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 PaymentEvolution Inc. All rights reserved.</span>
+      <span>Privacy Policy &nbsp;|&nbsp; Terms of Service</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Sticky nav background change on scroll
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('mainNav');
+  if (window.scrollY > 100) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+</script>
+</body>
+</html>
