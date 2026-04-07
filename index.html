@@ -587,60 +587,66 @@ footer a { color: var(--pl-yellow); text-decoration: none; }
 
   <!-- Proposed redesign -->
   <div class="section-label">Proposed Redesign</div>
-  <div class="section-title">5-Phase Guided Onboarding</div>
-  <div class="section-sub">Replace the current open-world experience with a progressive, milestone-based wizard that guides users to their first payroll in approximately 8 minutes.</div>
+  <div class="section-title">Adaptive Compliance-First Onboarding</div>
+  <div class="section-sub">Keep the strong quick signup and email verification pattern, then branch by authority, entity type, payment intent, and risk so payroll value arrives fast while ePay remains properly gated.</div>
 
   <div class="stat-grid">
     <div class="stat-card">
-      <div class="stat-val good">~8 min</div>
-      <div class="stat-label">Target time to first payroll</div>
+      <div class="stat-val good">&lt; 6 min</div>
+      <div class="stat-label">Target time to payroll-ready for low-risk manual paths</div>
     </div>
     <div class="stat-card">
-      <div class="stat-val good">85%+</div>
-      <div class="stat-label">Target signup completion</div>
+      <div class="stat-val good">Early</div>
+      <div class="stat-label">Signer and authority identified before screening</div>
     </div>
     <div class="stat-card">
-      <div class="stat-val good">70%+</div>
-      <div class="stat-label">Target activation rate</div>
+      <div class="stat-val neutral">Split</div>
+      <div class="stat-label">Payroll readiness separated from ePay readiness</div>
     </div>
     <div class="stat-card">
-      <div class="stat-val good">-60%</div>
-      <div class="stat-label">Support ticket reduction</div>
+      <div class="stat-val good">Targeted</div>
+      <div class="stat-label">Enhanced review only when risk actually requires it</div>
     </div>
   </div>
 
   <div class="card-grid" style="grid-template-columns:repeat(5,1fr);margin-bottom:40px;">
     <div class="card" style="text-align:center;">
       <div class="card-tag phase">Phase 1</div>
-      <h3 style="font-size:15px;">Sign Up</h3>
-      <p style="font-size:12px;">3 fields + Google SSO. 30 seconds.</p>
+      <h3 style="font-size:15px;">Create & Verify</h3>
+      <p style="font-size:12px;">Keep the low-friction 3-field signup and immediate email verification.</p>
     </div>
     <div class="card" style="text-align:center;">
       <div class="card-tag phase">Phase 2</div>
-      <h3 style="font-size:15px;">Verify Email</h3>
-      <p style="font-size:12px;">6-digit code. Before any setup. 30 seconds.</p>
+      <h3 style="font-size:15px;">Route by Risk</h3>
+      <p style="font-size:12px;">Ask what the user wants to do and whether they are the signer, owner, admin, or accountant.</p>
     </div>
     <div class="card" style="text-align:center;">
       <div class="card-tag phase">Phase 3</div>
-      <h3 style="font-size:15px;">Guided Setup</h3>
-      <p style="font-size:12px;">5-step wizard with smart defaults. 5 minutes.</p>
+      <h3 style="font-size:15px;">Build Payroll</h3>
+      <p style="font-size:12px;">Collect only the payroll essentials needed for accurate setup and first employee value.</p>
     </div>
     <div class="card" style="text-align:center;">
       <div class="card-tag phase">Phase 4</div>
-      <h3 style="font-size:15px;">First Payroll</h3>
-      <p style="font-size:12px;">Review + one-click approve. The aha moment.</p>
+      <h3 style="font-size:15px;">Verify ePay If Needed</h3>
+      <p style="font-size:12px;">Only funds-moving paths continue to signer IDV, bank verification, docs, and signature.</p>
     </div>
     <div class="card" style="text-align:center;">
       <div class="card-tag phase">Phase 5</div>
-      <h3 style="font-size:15px;">Dashboard</h3>
-      <p style="font-size:12px;">Clean nav + guided checklist. Ongoing.</p>
+      <h3 style="font-size:15px;">Status Center</h3>
+      <p style="font-size:12px;">Explicit end states: payroll ready, ePay approved, signer needed, or enhanced review.</p>
     </div>
   </div>
 
-  <div style="text-align:center;">
-    <a href="prototypes/PayEvo_Onboarding_Prototype.html" class="btn btn-primary" target="_blank">
-      Launch Onboarding Prototype
+  <div style="text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <a href="prototypes/PayEvo_Adaptive_Onboarding_PRD.html" class="btn btn-outline" target="_blank">
+      Open Adaptive PRD
+    </a>
+    <a href="prototypes/PayEvo_Adaptive_Onboarding_Prototype.html" class="btn btn-primary" target="_blank">
+      Launch Adaptive Prototype
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a href="prototypes/PayEvo_Onboarding_Prototype.html" class="btn btn-outline" target="_blank">
+      View Initial Prototype
     </a>
   </div>
 </section>
@@ -711,13 +717,31 @@ footer a { color: var(--pl-yellow); text-decoration: none; }
         <p>Experience-first with interactive demo elements</p>
       </div>
     </a>
+    <a href="prototypes/PayEvo_Adaptive_Onboarding_PRD.html" class="proto-card" target="_blank">
+      <div class="proto-preview" style="background:linear-gradient(135deg, #1B365D, #2285D0);">
+        <div class="proto-overlay"><span>Click to open -- PRD first</span></div>
+      </div>
+      <div class="proto-info">
+        <h4>Adaptive Onboarding PRD</h4>
+        <p>Compliance-first product requirements for branching payroll and ePay onboarding.</p>
+      </div>
+    </a>
+    <a href="prototypes/PayEvo_Adaptive_Onboarding_Prototype.html" class="proto-card" target="_blank">
+      <div class="proto-preview" style="background:linear-gradient(135deg, #0D9488, #F3CA07);">
+        <div class="proto-overlay"><span>Click to open -- 17 screens</span></div>
+      </div>
+      <div class="proto-info">
+        <h4>Adaptive Onboarding Prototype</h4>
+        <p>Branching onboarding with low-risk, delegated, returning-client, and enhanced-review paths.</p>
+      </div>
+    </a>
     <a href="prototypes/PayEvo_Onboarding_Prototype.html" class="proto-card" target="_blank">
       <div class="proto-preview" style="background:linear-gradient(135deg, #F3CA07, #0D9488);">
         <div class="proto-overlay"><span>Click to open -- 10 screens</span></div>
       </div>
       <div class="proto-info">
-        <h4>Onboarding Redesign Prototype</h4>
-        <p>Full 5-phase wizard: signup through dashboard. Use arrow keys to navigate.</p>
+        <h4>Initial Onboarding Prototype</h4>
+        <p>Original linear onboarding concept retained for comparison against the adaptive redesign.</p>
       </div>
     </a>
   </div>
