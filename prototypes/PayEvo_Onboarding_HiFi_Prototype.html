@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PayEvo Onboarding Hi-Fi Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+:root {
+  --pe-blue: #2285D0;
+  --pe-blue-tint: #EBF6FF;
+  --pe-blue-dark: #165585;
+  --pe-blue-darker: #02314D;
+  --pe-blue-soft: #7AB6E3;
+  --pe-blue-deep: #00669B;
+  --pe-green: #4CAF50;
+  --pe-green-dark: #317033;
+  --pe-green-tint: #F1FFF2;
+  --pe-orange: #F75C03;
+  --pe-orange-tint: #FAA675;
+  --pe-orange-dark: #873302;
+  --color-warning: #F5B700;
+  --color-warning-tint: #F9D773;
+  --color-danger: #F8333C;
+  --color-danger-tint: #FB8F94;
+  --color-danger-dark: #9E2127;
+  --color-magenta: #DC0073;
+  --color-navy: #0A2463;
+  --grey-900: #263238;
+  --grey-800: #455A64;
+  --grey-700: #48525C;
+  --grey-600: #70808F;
+  --grey-500: #7987A9;
+  --grey-400: #C4C4C4;
+  --grey-300: #E0E0E0;
+  --grey-200: #EBEBEB;
+  --grey-150: #F0F0F0;
+  --grey-100: #F5F5F5;
+  --grey-75: #F4F8FB;
+  --grey-50: #F9F9F9;
+  --white: #FFFFFF;
+  --ink: #444444;
+  --bg-page: var(--grey-75);
+  --bg-surface: var(--white);
+  --bg-surface-2: var(--grey-50);
+  --fg-primary: var(--ink);
+  --fg-secondary: var(--grey-500);
+  --fg-muted: var(--grey-400);
+  --fg-on-brand: var(--white);
+  --fg-link: var(--pe-blue);
+  --fg-heading: var(--pe-blue-deep);
+  --border-subtle: var(--grey-300);
+  --border-input: var(--grey-400);
+  --border-focus: var(--pe-blue);
+  --border-error: var(--color-danger);
+  --status-success: var(--pe-green);
+  --status-warning: var(--color-warning);
+  --status-error: var(--color-danger);
+  --status-info: var(--pe-blue);
+  --fs-display: 50px;
+  --fs-h1: 40px;
+  --fs-h2: 36px;
+  --fs-h3: 30px;
+  --fs-h4: 26px;
+  --fs-h5: 20px;
+  --fs-body: 16px;
+  --fs-body-sm: 14px;
+  --fs-caption: 12px;
+  --fs-micro: 10px;
+  --lh-tight: 100%;
+  --lh-snug: 120%;
+  --lh-normal: 140%;
+  --lh-relaxed: 150%;
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+  --radius-sm: 3px;
+  --radius: 5px;
+  --radius-md: 8px;
+  --radius-card: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-elevated: 0 4px 16px rgba(0,0,0,0.10);
+  --shadow-floating: 0 8px 24px rgba(0,0,0,0.12);
+  --shadow-focus: 0 0 0 3px rgba(34,133,208,0.25);
+  --shadow-focus-error: 0 0 0 3px rgba(248,51,60,0.25);
+  --header-h: 64px;
+  --content-max: 1600px;
+  --ease-standard: cubic-bezier(.2, .0, .2, 1);
+  --dur-fast: 120ms;
+  --dur: 180ms;
+  --dur-slow: 280ms;
+  --card-max: 720px;
+}
+
+* { box-sizing: border-box; }
+html { min-height: 100%; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg-page);
+  color: var(--fg-primary);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+}
+button, input, select, textarea { font: inherit; }
+button { min-height: 44px; }
+a { color: var(--fg-link); }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: var(--header-h);
+  display: grid;
+  grid-template-columns: minmax(210px, 1fr) minmax(420px, 620px) minmax(210px, 1fr);
+  align-items: center;
+  gap: 20px;
+  padding: 0 24px;
+  background: rgba(255,255,255,0.96);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(12px);
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--pe-blue-darker), var(--pe-blue));
+  color: var(--white);
+  display: grid;
+  place-items: center;
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+}
+.brand-name {
+  font-weight: var(--fw-bold);
+  color: var(--grey-900);
+  white-space: nowrap;
+}
+.plan-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  background: var(--grey-150);
+  color: var(--grey-700);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+}
+.step-progress {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: start;
+  gap: 0;
+}
+.step-item {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  color: var(--grey-500);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-semibold);
+}
+.step-item::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: -50%;
+  width: 100%;
+  height: 2px;
+  background: var(--grey-300);
+  z-index: 0;
+}
+.step-item:first-child::before { display: none; }
+.step-dot {
+  position: relative;
+  z-index: 1;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--grey-300);
+  background: var(--white);
+  color: var(--grey-600);
+  font-size: var(--fs-caption);
+}
+.step-item.done::before,
+.step-item.active::before { background: var(--pe-green); }
+.step-item.done .step-dot {
+  background: var(--pe-green);
+  border-color: var(--pe-green);
+  color: var(--white);
+}
+.step-item.active .step-dot {
+  background: var(--pe-blue);
+  border-color: var(--pe-blue);
+  color: var(--white);
+  box-shadow: var(--shadow-focus);
+}
+.step-item.active { color: var(--pe-blue-deep); }
+.header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.save-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--grey-600);
+  font-size: var(--fs-body-sm);
+  white-space: nowrap;
+}
+.save-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--pe-green);
+  box-shadow: 0 0 0 4px rgba(76,175,80,0.12);
+}
+.lang-toggle {
+  display: inline-flex;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  padding: 2px;
+}
+.lang-toggle button {
+  min-height: 32px;
+  border: 0;
+  background: transparent;
+  color: var(--grey-600);
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+}
+.lang-toggle button.active {
+  background: var(--pe-blue);
+  color: var(--white);
+}
+
+.shell {
+  min-height: calc(100vh - var(--header-h));
+  padding: 40px 20px 110px;
+  display: grid;
+  place-items: start center;
+}
+.card {
+  width: min(100%, var(--card-max));
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 30px;
+  animation: mount var(--dur) var(--ease-standard);
+}
+.card.wide { --card-max: 960px; }
+.card.narrow { --card-max: 480px; }
+.screen-kicker {
+  font-size: var(--fs-micro);
+  font-weight: var(--fw-semibold);
+  color: var(--grey-500);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.screen-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+.screen-head h1 {
+  margin: 0 0 8px;
+  color: var(--fg-heading);
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+  font-weight: var(--fw-regular);
+}
+.screen-head p {
+  margin: 0;
+  color: var(--grey-600);
+  font-size: var(--fs-body-sm);
+}
+.section-title {
+  margin: 0 0 14px;
+  color: var(--fg-heading);
+  font-size: var(--fs-h5);
+  line-height: var(--lh-snug);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.02em;
+}
+.card-section {
+  padding-top: 24px;
+  margin-top: 24px;
+  border-top: 1px solid var(--border-subtle);
+}
+.field-row,
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.field {
+  margin-bottom: 16px;
+}
+.field label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--grey-700);
+  font-size: var(--fs-body-sm);
+  font-weight: var(--fw-semibold);
+  margin-bottom: 6px;
+}
+.required {
+  color: var(--color-danger);
+  font-weight: var(--fw-bold);
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink);
+  padding: 10px 12px;
+  outline: none;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+}
+.field textarea { min-height: 94px; resize: vertical; }
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--border-focus);
+  box-shadow: var(--shadow-focus);
+}
+.field.error input,
+.field.error select {
+  border-color: var(--border-error);
+}
+.field.error input:focus,
+.field.error select:focus {
+  box-shadow: var(--shadow-focus-error);
+}
+.hint,
+.error-text {
+  margin-top: 6px;
+  color: var(--grey-500);
+  font-size: var(--fs-caption);
+  line-height: var(--lh-normal);
+}
+.error-text { color: var(--color-danger-dark); }
+.help-icon {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--pe-blue-soft);
+  border-radius: 50%;
+  background: var(--pe-blue-tint);
+  color: var(--pe-blue-deep);
+  display: inline-grid;
+  place-items: center;
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  cursor: help;
+  position: relative;
+}
+.help-icon::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 260px;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  background: var(--grey-900);
+  color: var(--white);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-normal);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-fast);
+  box-shadow: var(--shadow-floating);
+  z-index: 4;
+}
+.help-icon:hover::after,
+.help-icon:focus::after { opacity: 1; }
+
+.radio-grid,
+.path-grid,
+.chip-stack {
+  display: grid;
+  gap: 12px;
+}
+.radio-grid.cols-2,
+.path-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.radio-grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.radio-card,
+.path-card,
+.chip-card,
+.drop-zone,
+.stat-card,
+.next-card {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  padding: 16px;
+  transition: border-color var(--dur-fast), background var(--dur-fast), box-shadow var(--dur-fast);
+}
+.radio-card,
+.path-card,
+.chip-card { cursor: pointer; }
+.radio-card:hover,
+.path-card:hover,
+.chip-card:hover {
+  border-color: var(--pe-blue-dark);
+  box-shadow: var(--shadow-card-hover);
+}
+.radio-card.selected {
+  border-color: var(--pe-blue);
+  background: var(--pe-blue-tint);
+}
+.radio-card .radio-top,
+.chip-card .chip-top,
+.path-card .path-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.radio-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--grey-400);
+  background: var(--white);
+  flex: 0 0 auto;
+}
+.radio-card.selected .radio-dot {
+  border-color: var(--pe-blue);
+  box-shadow: inset 0 0 0 4px var(--white);
+  background: var(--pe-blue);
+}
+.radio-card h3,
+.path-card h3,
+.chip-card h3,
+.stat-card h3,
+.next-card h3 {
+  margin: 0 0 6px;
+  color: var(--ink);
+  font-size: var(--fs-body);
+  line-height: var(--lh-snug);
+  font-weight: var(--fw-semibold);
+}
+.radio-card p,
+.path-card p,
+.chip-card p,
+.next-card p {
+  margin: 0;
+  color: var(--grey-600);
+  font-size: var(--fs-body-sm);
+}
+.chip-card.edited {
+  border-color: var(--pe-blue);
+  background: var(--pe-blue-tint);
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 24px;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-caption);
+  line-height: 1;
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+}
+.pill.gray { background: var(--grey-150); color: var(--grey-700); }
+.pill.blue { background: var(--pe-blue-tint); color: var(--pe-blue-deep); }
+.pill.green { background: var(--pe-green-tint); color: var(--pe-green-dark); }
+.pill.amber { background: var(--color-warning-tint); color: #6A5000; }
+.pill.red { background: var(--color-danger-tint); color: var(--color-danger-dark); }
+
+.banner,
+.state-banner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin: 0 0 20px;
+}
+.banner .banner-icon,
+.state-banner .banner-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: var(--fw-bold);
+}
+.banner h3,
+.state-banner h3 {
+  margin: 0 0 2px;
+  color: var(--ink);
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-snug);
+  font-weight: var(--fw-bold);
+}
+.banner p,
+.state-banner p {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--fs-body-sm);
+}
+.banner.info {
+  background: var(--pe-blue-tint);
+  border-left: 3px solid var(--pe-blue);
+}
+.banner.info .banner-icon { background: var(--white); color: var(--pe-blue); }
+.banner.success {
+  background: var(--pe-green-tint);
+  border-left: 3px solid var(--pe-green);
+}
+.banner.success .banner-icon { background: var(--white); color: var(--pe-green-dark); }
+.banner.warning {
+  background: var(--color-warning-tint);
+  border-left: 3px solid var(--color-warning);
+}
+.banner.warning .banner-icon { background: var(--white); color: #6A5000; }
+.banner.error {
+  background: var(--color-danger-tint);
+  border-left: 3px solid var(--color-danger);
+}
+.banner.error h3,
+.banner.error p { color: var(--color-danger-dark); }
+.banner.error .banner-icon { background: var(--white); color: var(--color-danger-dark); }
+.state-banner {
+  background: linear-gradient(90deg, var(--pe-blue-tint), var(--pe-green-tint));
+  border-left: 3px solid var(--pe-green);
+}
+.state-banner h3 { color: var(--pe-blue-deep); }
+.state-banner .banner-icon { background: var(--white); color: var(--pe-green-dark); }
+
+.checkbox-row {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 10px;
+  align-items: start;
+  margin: 12px 0;
+  color: var(--grey-700);
+  font-size: var(--fs-body-sm);
+}
+.checkbox-row input {
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0;
+  accent-color: var(--pe-blue);
+}
+.btn-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 26px;
+}
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.btn {
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 18px;
+  min-height: 44px;
+  color: var(--ink);
+  background: var(--white);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--dur-fast), border-color var(--dur-fast), box-shadow var(--dur-fast);
+}
+.btn:focus-visible,
+.radio-card:focus-visible,
+.chip-card:focus-visible,
+.path-card:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+.btn.primary {
+  background: var(--pe-blue);
+  color: var(--white);
+}
+.btn.primary:hover { background: var(--pe-blue-dark); }
+.btn.secondary {
+  border-color: var(--border-subtle);
+  color: var(--grey-700);
+}
+.btn.ghost {
+  background: transparent;
+  color: var(--grey-700);
+}
+.btn.success {
+  background: var(--pe-green);
+  color: var(--white);
+}
+.btn.success:hover { background: var(--pe-green-dark); }
+.btn.danger {
+  background: var(--color-danger);
+  color: var(--white);
+}
+.btn.large {
+  min-height: 52px;
+  padding: 14px 24px;
+  font-size: var(--fs-h5);
+}
+.btn.block { width: 100%; }
+.btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.otc-row {
+  display: grid;
+  grid-template-columns: repeat(6, 44px);
+  gap: 8px;
+  justify-content: center;
+  margin: 22px 0;
+}
+.otc-row input {
+  width: 44px;
+  height: 56px;
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius);
+  text-align: center;
+  font-size: var(--fs-h5);
+  font-weight: var(--fw-bold);
+  color: var(--ink);
+}
+.otc-row input:focus {
+  outline: none;
+  border-color: var(--pe-blue);
+  box-shadow: var(--shadow-focus);
+}
+.qr-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
+  align-items: center;
+}
+.qr-box {
+  width: 180px;
+  height: 180px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(90deg, var(--grey-900) 8px, transparent 8px) 0 0 / 24px 24px,
+    linear-gradient(var(--grey-900) 8px, transparent 8px) 0 0 / 24px 24px,
+    var(--white);
+  display: grid;
+  place-items: center;
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+.qr-box::after {
+  content: "QR";
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--pe-blue-deep);
+  display: grid;
+  place-items: center;
+  font-weight: var(--fw-bold);
+}
+.stepper {
+  display: grid;
+  gap: 14px;
+  margin: 18px 0;
+}
+.stepper-row {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+.stepper-node {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid var(--grey-300);
+  display: grid;
+  place-items: center;
+  color: var(--grey-500);
+  background: var(--white);
+}
+.stepper-row.done .stepper-node {
+  border-color: var(--pe-green);
+  background: var(--pe-green);
+  color: var(--white);
+}
+.stepper-row.active .stepper-node {
+  border-color: var(--pe-blue);
+  color: var(--pe-blue);
+}
+.spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: spin 800ms linear infinite;
+}
+.stepper-row h3 {
+  margin: 2px 0 2px;
+  color: var(--ink);
+  font-size: var(--fs-body-sm);
+}
+.stepper-row p {
+  margin: 0;
+  color: var(--grey-600);
+  font-size: var(--fs-caption);
+}
+.table-wrap {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: auto;
+  background: var(--white);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 680px;
+}
+th, td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  text-align: left;
+  vertical-align: middle;
+  font-size: var(--fs-body-sm);
+}
+th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--grey-50);
+  color: var(--grey-600);
+  font-size: var(--fs-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+tr:last-child td { border-bottom: 0; }
+tr.row-err td { background: rgba(248,51,60,0.08); }
+.totals-row td {
+  background: var(--pe-blue-tint);
+  font-weight: var(--fw-bold);
+}
+.drop-zone {
+  min-height: 150px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  border-style: dashed;
+  background: var(--grey-50);
+}
+.drop-zone:hover {
+  border-color: var(--pe-blue);
+  background: var(--pe-blue-tint);
+}
+.signature-box {
+  height: 116px;
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius);
+  background: linear-gradient(var(--white), var(--white)) padding-box,
+    repeating-linear-gradient(0deg, transparent, transparent 35px, var(--grey-200) 36px);
+  display: grid;
+  place-items: center;
+  color: var(--grey-500);
+  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-size: 34px;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.stat-card {
+  background: var(--grey-50);
+}
+.stat-card .stat-label {
+  color: var(--grey-500);
+  font-size: var(--fs-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: var(--fw-bold);
+}
+.stat-card .stat-value {
+  margin-top: 5px;
+  color: var(--grey-900);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-snug);
+}
+.next-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.success-mark {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--pe-green-tint);
+  color: var(--pe-green-dark);
+  font-size: 34px;
+  animation: pop var(--dur-slow) var(--ease-standard);
+}
+.celebration {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto;
+}
+.timeline {
+  display: grid;
+  gap: 10px;
+}
+.timeline-item {
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.timeline-time {
+  color: var(--grey-500);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+}
+
+.help-fab {
+  position: fixed;
+  left: 22px;
+  bottom: 22px;
+  z-index: 45;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--pe-blue);
+  color: var(--white);
+  box-shadow: var(--shadow-floating);
+  cursor: pointer;
+}
+.help-fab svg { display: block; margin: auto; }
+.prototype-toolbar {
+  position: fixed;
+  z-index: 50;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  width: min(calc(100% - 112px), 930px);
+  display: grid;
+  grid-template-columns: 44px minmax(180px, 1.3fr) minmax(160px, 1fr) 44px;
+  gap: 8px;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: rgba(255,255,255,0.96);
+  box-shadow: var(--shadow-floating);
+  backdrop-filter: blur(12px);
+}
+.prototype-toolbar select,
+.prototype-toolbar button {
+  min-height: 40px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink);
+  padding: 0 10px;
+}
+.prototype-toolbar button {
+  cursor: pointer;
+  font-weight: var(--fw-bold);
+}
+.prototype-toolbar .counter {
+  color: var(--grey-500);
+  font-size: var(--fs-caption);
+  text-align: center;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(38,50,56,0.46);
+}
+.modal-backdrop.open { display: flex; }
+.modal {
+  width: min(100%, 520px);
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  box-shadow: var(--shadow-floating);
+  animation: modalIn var(--dur) var(--ease-standard);
+}
+.modal-head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 20px 20px 14px;
+  background: var(--white);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.modal-head h2 {
+  margin: 0;
+  color: var(--fg-heading);
+  font-size: var(--fs-h5);
+}
+.modal-head p {
+  margin: 4px 0 0;
+  color: var(--grey-600);
+  font-size: var(--fs-body-sm);
+}
+.modal-close {
+  width: 36px;
+  height: 36px;
+  min-height: 36px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--grey-100);
+  color: var(--grey-700);
+  cursor: pointer;
+}
+.modal-body { padding: 20px; }
+.modal-actions {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 20px 20px;
+  background: var(--white);
+  border-top: 1px solid var(--border-subtle);
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes mount {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes pop {
+  0% { transform: scale(0.86); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 900px) {
+  .app-header {
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+  }
+  .step-progress { display: none; }
+  .shell { padding-top: 24px; }
+  .card { padding: 20px; }
+  .screen-head { display: block; }
+  .field-row,
+  .grid-2,
+  .grid-3,
+  .radio-grid.cols-2,
+  .radio-grid.cols-3,
+  .path-grid,
+  .stats,
+  .next-grid,
+  .qr-layout {
+    grid-template-columns: 1fr;
+  }
+  .prototype-toolbar {
+    width: calc(100% - 24px);
+    left: 12px;
+    transform: none;
+    grid-template-columns: 40px minmax(0, 1fr) 40px;
+  }
+  .prototype-toolbar #variantSelect { grid-column: 1 / -1; }
+  .prototype-toolbar .counter { display: none; }
+  .brand-name { display: none; }
+  .save-state { display: none; }
+}
+@media (max-width: 480px) {
+  .app-header { padding: 0 14px; }
+  .plan-badge { display: none; }
+  .shell { padding-left: 12px; padding-right: 12px; }
+  .card { padding: 20px; border-radius: var(--radius-md); }
+  .btn-row { flex-direction: column-reverse; }
+  .btn-row .btn-group,
+  .btn-row .btn { width: 100%; }
+  .otc-row { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .otc-row input { width: 100%; }
+  .timeline-item { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+<header class="app-header" aria-label="PayEvo onboarding header">
+  <div class="brand">
+    <div class="brand-mark" aria-hidden="true">P</div>
+    <div class="brand-name">PayEvo</div>
+    <span class="plan-badge">Growth</span>
+  </div>
+  <nav class="step-progress" id="stepProgress" aria-label="Onboarding progress"></nav>
+  <div class="header-actions">
+    <div class="save-state" role="status" aria-live="polite"><span class="save-dot"></span><span id="saveText">Saved</span></div>
+    <div class="lang-toggle" aria-label="Language">
+      <button type="button" class="active" data-lang="en">EN</button>
+      <button type="button" data-lang="fr">FR</button>
+    </div>
+  </div>
+</header>
+
+<main class="shell">
+  <article class="card" id="screenFrame" tabindex="-1"></article>
+</main>
+
+<button class="help-fab" type="button" aria-label="Open chat help" data-modal="help">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M5 17.5V7a3 3 0 013-3h8a3 3 0 013 3v5.5a3 3 0 01-3 3H9l-4 4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<div class="prototype-toolbar" aria-label="Prototype screen controls">
+  <button type="button" id="prevScreen" aria-label="Previous screen">&lsaquo;</button>
+  <select id="screenSelect" aria-label="Choose screen"></select>
+  <select id="variantSelect" aria-label="Choose screen variant"></select>
+  <button type="button" id="nextScreen" aria-label="Next screen">&rsaquo;</button>
+  <div class="counter" id="screenCounter"></div>
+</div>
+
+<div class="modal-backdrop" id="modalRoot" aria-hidden="true"></div>
+
+<script>
+const appState = {
+  screenIndex: 0,
+  variantIndex: 0,
+  lang: 'en',
+  savedTimer: null
+};
+
+const steps = [
+  { label: 'Business', fr: 'Entreprise' },
+  { label: 'ID & Bank', fr: 'ID et banque' },
+  { label: 'Payroll', fr: 'Paie' },
+  { label: 'Employees', fr: 'Employes' },
+  { label: 'Run', fr: 'Lancer' }
+];
+
+function t(en, fr) {
+  return appState.lang === 'fr' ? (fr || en) : en;
+}
+
+function slug(value) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function head(kicker, title, subtitle, aside = '') {
+  return `
+    <div class="screen-kicker">${kicker}</div>
+    <div class="screen-head">
+      <div>
+        <h1>${title}</h1>
+        <p>${subtitle}</p>
+      </div>
+      ${aside}
+    </div>`;
+}
+
+function field(label, value = '', hint = '', options = {}) {
+  const id = options.id || slug(label + Math.random().toString(16).slice(2, 6));
+  const type = options.type || 'text';
+  const required = options.required ? '<span class="required" aria-hidden="true">*</span>' : '';
+  const help = options.tip ? `<span tabindex="0" class="help-icon" data-tip="${options.tip}" aria-label="${options.tip}">?</span>` : '';
+  const disabled = options.disabled ? 'disabled' : '';
+  const described = hint || options.error ? `aria-describedby="${id}-hint"` : '';
+  const errorClass = options.error ? ' error' : '';
+  let control = '';
+  if (options.select) {
+    control = `<select id="${id}" ${disabled} ${described}>${options.select.map(item => `<option${item === value ? ' selected' : ''}>${item}</option>`).join('')}</select>`;
+  } else if (options.textarea) {
+    control = `<textarea id="${id}" ${described} placeholder="${options.placeholder || ''}">${value}</textarea>`;
+  } else {
+    control = `<input id="${id}" type="${type}" value="${value}" placeholder="${options.placeholder || ''}" ${disabled} ${described} ${options.pattern ? `pattern="${options.pattern}"` : ''}>`;
+  }
+  return `<div class="field${errorClass}"><label for="${id}">${label}${required}${help}</label>${control}${hint ? `<div class="hint" id="${id}-hint">${hint}</div>` : ''}${options.error ? `<div class="error-text" id="${id}-hint">${options.error}</div>` : ''}</div>`;
+}
+
+function banner(type, title, body) {
+  const icon = { info: 'i', success: '&check;', warning: '!', error: '!' }[type] || 'i';
+  return `<div class="banner ${type}" role="${type === 'error' ? 'alert' : 'status'}"><div class="banner-icon">${icon}</div><div><h3>${title}</h3><p>${body}</p></div></div>`;
+}
+
+function stateBanner(body = t('ePay direct deposit is being verified and will activate automatically - most approvals complete within 4 business hours.', 'Le depot direct ePay est en verification et s activera automatiquement - la plupart des approbations sont terminees en 4 heures ouvrables.'), title = t('Your account is live for payroll.', 'Votre compte est pret pour la paie.')) {
+  return `<div class="state-banner" role="status" aria-live="polite"><div class="banner-icon">&check;</div><div><h3>${title}</h3><p>${body}</p></div></div>`;
+}
+
+function pill(color, text) {
+  return `<span class="pill ${color}">${text}</span>`;
+}
+
+function radio(title, body, selected = false, tag = '') {
+  return `<div class="radio-card${selected ? ' selected' : ''}" role="radio" tabindex="0" aria-checked="${selected}">
+    <div class="radio-top"><div><h3>${title}</h3><p>${body}</p></div><span class="radio-dot" aria-hidden="true"></span></div>
+    ${tag ? `<div style="margin-top:12px">${tag}</div>` : ''}
+  </div>`;
+}
+
+function chip(title, summary, status = 'Default', edited = false, modal = '') {
+  return `<div class="chip-card${edited ? ' edited' : ''}" tabindex="0">
+    <div class="chip-top">
+      <div><h3>${title}</h3><p>${summary}</p></div>
+      <div class="btn-group">${pill(edited ? 'blue' : 'gray', status)}${modal ? `<button class="btn ghost" type="button" data-modal="${modal}">${t('Edit', 'Modifier')}</button>` : ''}</div>
+    </div>
+  </div>`;
+}
+
+function buttons(nextText = t('Continue', 'Continuer'), options = {}) {
+  const prev = options.noBack ? '' : `<button type="button" class="btn secondary" data-prev>${t('Back', 'Retour')}</button>`;
+  const nextClass = options.success ? 'success' : (options.danger ? 'danger' : 'primary');
+  const disabled = options.disabled ? 'disabled' : '';
+  const extra = options.extra || '';
+  return `<div class="btn-row">${prev}<div class="btn-group">${extra}<button type="button" class="btn ${nextClass} ${options.large ? 'large' : ''}" data-next ${disabled}>${nextText}</button></div></div>`;
+}
+
+function table(headers, rows, options = {}) {
+  return `<div class="table-wrap"><table><thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.map(row => `<tr class="${row.class || ''}">${row.cells.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody>${options.footer || ''}</table></div>`;
+}
+
+function stepper(items) {
+  return `<div class="stepper">${items.map(item => `<div class="stepper-row ${item.state}">
+    <div class="stepper-node">${item.state === 'active' ? '<span class="spinner"></span>' : item.state === 'done' ? '&check;' : '&cir;'}</div>
+    <div><h3>${item.title}</h3><p>${item.body}</p></div>
+  </div>`).join('')}</div>`;
+}
+
+function statCards(items) {
+  return `<div class="stats">${items.map(item => `<div class="stat-card"><div class="stat-label">${item.label}</div><div class="stat-value">${item.value}</div></div>`).join('')}</div>`;
+}
+
+function nextCards() {
+  const cards = [
+    [t('Add more employees', 'Ajouter des employes'), t('Invite via CSV or PayChequer.', 'Inviter par CSV ou PayChequer.')],
+    [t('Connect accounting', 'Connecter la comptabilite'), t('Sync payroll journal entries.', 'Synchroniser les ecritures de paie.')],
+    [t('Schedule next payroll', 'Planifier la prochaine paie'), t('Set the next pay date now.', 'Choisir la prochaine date de paie.')],
+    [t('Invite accountant', 'Inviter le comptable'), t('Share controlled access.', 'Partager un acces controle.')]
+  ];
+  return `<div class="next-grid">${cards.map(([title, body]) => `<div class="next-card"><h3>${title}</h3><p>${body}</p></div>`).join('')}</div>`;
+}
+
+const screens = [
+  {
+    id: 'role-gate',
+    label: 'Role gate',
+    step: 0,
+    size: 'narrow',
+    variants: ['Owner or signer', 'Employee terminal'],
+    render(v) {
+      const employee = v === 1;
+      return head(t('Sign up', 'Inscription'), t('Welcome to PayEvo', 'Bienvenue a PayEvo'), t('Which best describes you?', 'Lequel vous decrit le mieux?')) +
+        (employee ? banner('info', t("You do not sign up here.", "Cette inscription n est pas pour vous."), t('Employees and contractors use PayChequer to see pay stubs and add banking details.', 'Les employes et contractuels utilisent PayChequer pour consulter les talons et ajouter leurs coordonnees bancaires.')) : '') +
+        `<div class="radio-grid">${[
+          radio(t('Owner / Signing Officer', 'Proprietaire / signataire autorise'), t('I can legally bind the business.', 'Je peux engager legalement l entreprise.'), !employee),
+          radio(t('Payroll Admin', 'Administrateur de la paie'), t('I run payroll, but may not be the signer.', 'Je gere la paie, sans etre necessairement signataire.')),
+          radio(t('Accountant or Bookkeeper', 'Comptable ou teneur de livres'), t('I am setting this up for a client.', 'Je configure la paie pour un client.')),
+          radio(t('Employee or Contractor', 'Employe ou contractuel'), t('I need PayChequer, not employer onboarding.', 'J ai besoin de PayChequer, pas de l inscription employeur.'), employee)
+        ].join('')}</div>` +
+        buttons(employee ? t('Open PayChequer', 'Ouvrir PayChequer') : t('Continue', 'Continuer'), { noBack: true, disabled: false });
+    }
+  },
+  {
+    id: 'signup',
+    label: 'Sign up',
+    step: 0,
+    size: 'narrow',
+    variants: ['Email and password', 'SSO returned'],
+    render(v) {
+      const sso = v === 1;
+      const ssoButtons = `<div class="grid-2" style="margin-bottom:16px"><button class="btn secondary" type="button">Google</button><button class="btn secondary" type="button">Microsoft</button></div>`;
+      return head(t('Sign up', 'Inscription'), t('Create your account', 'Creez votre compte'), t('Takes about 30 seconds.', 'Environ 30 secondes.')) +
+        ssoButtons +
+        (sso ? banner('success', t('Google account connected.', 'Compte Google connecte.'), t('Confirm the two required consents to continue.', 'Confirmez les deux consentements requis pour continuer.')) :
+        `<div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;margin:8px 0 18px"><div style="height:1px;background:var(--border-subtle)"></div><span class="hint">or</span><div style="height:1px;background:var(--border-subtle)"></div></div>
+        ${field(t('Email', 'Courriel'), 'roberto@biopick.ca', '', { required: true, type: 'email' })}
+        ${field(t('Full name', 'Nom complet'), 'Roberto Alvarez', '', { required: true })}
+        ${field(t('Password', 'Mot de passe'), '', t('At least 12 characters.', 'Au moins 12 caracteres.'), { required: true, type: 'password' })}`) +
+        `<label class="checkbox-row"><input type="checkbox" checked><span>${t('I agree to the Terms of Service, Privacy Policy, and Confidentiality terms.', 'J accepte les conditions de service, la politique de confidentialite et les conditions de confidentialite.')}</span></label>
+        <label class="checkbox-row"><input type="checkbox" ${sso ? 'checked' : ''}><span>${t('I have authority to bind this business or will invite the signer.', 'Je suis autorise a engager cette entreprise ou j inviterai le signataire.')}</span></label>` +
+        buttons(t('Create account', 'Creer le compte'), { noBack: false, large: true });
+    }
+  },
+  {
+    id: 'otc',
+    label: 'Email code',
+    step: 0,
+    size: 'narrow',
+    variants: ['Default', 'Wrong code', 'Lockout'],
+    render(v) {
+      const err = v === 1 ? banner('error', t('That code did not match.', 'Ce code ne correspond pas.'), t('Check the latest email from PayEvo or resend a new code.', 'Verifiez le dernier courriel de PayEvo ou renvoyez un nouveau code.')) : '';
+      const lock = v === 2 ? banner('warning', t('Too many attempts.', 'Trop de tentatives.'), t('Try again in 14:32 or chat with us for help.', 'Reessayez dans 14:32 ou clavardez avec nous.')) : '';
+      return head(t('Sign up', 'Inscription'), t('Check your email', 'Verifiez votre courriel'), t('We sent a 6-digit code to roberto@biopick.ca. It expires in 15 minutes.', 'Nous avons envoye un code a 6 chiffres a roberto@biopick.ca. Il expire dans 15 minutes.')) +
+        err + lock +
+        `<div class="otc-row" data-otc>${[0,1,2,3,4,5].map(i => `<input inputmode="numeric" maxlength="1" aria-label="Code digit ${i + 1}" ${v === 1 ? `value="${[4,1,9,0,2,8][i]}"` : ''}>`).join('')}</div>
+        <button class="btn primary block" type="button" data-next ${v === 2 ? 'disabled' : ''}>${t('Verify', 'Verifier')}</button>
+        <div style="text-align:center;margin-top:16px"><a href="#">${t('Resend code', 'Renvoyer le code')}</a></div>`;
+    }
+  },
+  {
+    id: 'business-basics',
+    label: 'Business basics',
+    step: 1,
+    variants: ['Sole proprietor', 'Federal corp match', 'Resume + registry degraded'],
+    render(v) {
+      const match = v === 1 ? banner('success', t('Registry match found.', 'Correspondance au registre trouvee.'), t('We matched BioPick Enterprises Inc. and pre-filled the registered address.', 'Nous avons trouve BioPick Enterprises Inc. et pre-rempli l adresse enregistree.')) : '';
+      const degraded = v === 2 ? banner('info', t('Welcome back - pick up where you left off.', 'Bon retour - reprenez la ou vous etiez.'), t('We saved your progress on Apr 4, 2026. We will confirm registration in the background because the registry is slow right now.', 'Nous avons sauvegarde votre progression le 4 avril 2026. Nous confirmerons l inscription en arriere-plan, car le registre est lent en ce moment.')) : '';
+      return head(t('Step 1 of 5 - Business', 'Etape 1 de 5 - Entreprise'), t('Tell us about your business', 'Parlez-nous de votre entreprise'), t("We will use this to pre-fill what we can and skip the rest.", 'Nous utiliserons ces donnees pour pre-remplir ce qui est possible.')) +
+        match + degraded +
+        field(t('Legal Business Name', 'Nom legal de l entreprise'), v === 0 ? 'BioPick Consulting' : 'BioPick Enterprises Inc.', '', { required: true }) +
+        field(t('Operating Name / DBA', 'Nom commercial'), 'BioPick', '', {}) +
+        field(t('Company Phone', 'Telephone de l entreprise'), '(416) 555-0198', '', { required: true, type: 'tel' }) +
+        `<div class="field-row">${field(t('Number of employees', 'Nombre d employes'), '6-25', '', { required: true, select: ['1-5','6-25','26-100','100+'] })}${field(t('Industry', 'Industrie'), v === 2 ? 'Crypto and digital assets' : 'Biotechnology', '', { required: true, select: ['Biotechnology','Professional services','Retail','Construction','Crypto and digital assets','Cannabis','Hospitality'] })}</div>
+        <div class="field-row">${field(t('Business Type', 'Type d entreprise'), v === 0 ? 'Sole Proprietor' : 'Corporation', '', { required: true, select: ['Sole Proprietor','Corporation','Partnership','Not-for-Profit'] })}${v === 0 ? field(t('Annual payroll value', 'Masse salariale annuelle'), 'Hidden for 1-5 employee sole prop', t('This field stays hidden until needed.', 'Ce champ reste masque jusqu a ce qu il soit necessaire.'), { disabled: true }) : field(t('Incorporation Type', 'Type de constitution'), 'Federal', '', { required: true, select: ['Federal','Provincial'] })}</div>
+        ${v === 0 ? '' : field(t('Annual Payroll Value', 'Masse salariale annuelle'), '$500K-$1M', t('Used to pre-select remittance frequency later.', 'Utilise plus tard pour preselectionner la frequence de remise.'), { select: ['Under $100K','$100K-$500K','$500K-$1M','$1M+'] })}` +
+        buttons();
+    }
+  },
+  {
+    id: 'business-address',
+    label: 'Business address',
+    step: 1,
+    variants: ['Single province', 'Multi province + QC', 'International trigger'],
+    render(v) {
+      const intl = v === 2;
+      return head(t('Step 1 of 5 - Business', 'Etape 1 de 5 - Entreprise'), t('Where does your business operate?', 'Ou votre entreprise exerce-t-elle ses activites?'), t('We use this to load the right provincial payroll rules.', 'Nous utilisons ceci pour charger les bonnes regles provinciales.')) +
+        (intl ? banner('warning', t('International routing detected.', 'Routage international detecte.'), t('This business appears to operate outside Canada. We have an International Plus path for you.', 'Cette entreprise semble operer hors du Canada. Nous avons un parcours International Plus pour vous.')) : '') +
+        `<div class="field-row">${field(t('Street address', 'Adresse'), intl ? '350 5th Ave' : '88 Queen Street W', '', { required: true })}${field(t('City', 'Ville'), intl ? 'New York' : 'Toronto', '', { required: true })}</div>
+        <div class="field-row">${field(t('Province', 'Province'), intl ? 'Outside Canada' : (v === 1 ? 'Quebec' : 'Ontario'), '', { required: true, select: ['Ontario','Quebec','British Columbia','Alberta','Manitoba','Outside Canada'] })}${field(t('Postal Code', 'Code postal'), intl ? '10001' : (v === 1 ? 'H2Y 1C6' : 'M5H 2N2'), '', { required: true, error: intl ? t('Use a Canadian postal code in A1A 1A1 format, or continue to International Plus.', 'Utilisez un code postal canadien au format A1A 1A1, ou continuez vers International Plus.') : '' })}</div>
+        <div class="card-section"><h2 class="section-title">${t('Where do you employ people?', 'Ou employez-vous des personnes?')}</h2>
+        <div class="radio-grid cols-3">${['Ontario','Quebec','British Columbia','Alberta','Manitoba','Nova Scotia','Saskatchewan','Newfoundland','New Brunswick'].map((p, i) => radio(p, i === 1 && v === 1 ? t('Selected - French preference available.', 'Selectionne - preference francais disponible.') : t('Payroll rules loaded when selected.', 'Regles de paie chargees si selectionne.'), (v === 0 && i === 0) || (v === 1 && [0,1,2].includes(i)))).join('')}</div></div>` +
+        buttons(intl ? t('Explore International Plus', 'Explorer International Plus') : t('Continue', 'Continuer'));
+    }
+  },
+  {
+    id: 'business-owners',
+    label: 'Owners',
+    step: 1,
+    variants: ['Sole prop proof only', 'Corp no multi-owner', 'Corp multi-owner', 'Signer not applicant'],
+    render(v) {
+      const sole = v === 0;
+      const signerNo = v === 3;
+      const multi = v === 2;
+      return head(t('Step 1 of 5 - Business', 'Etape 1 de 5 - Entreprise'), t('Ownership and signing', 'Propriete et signature'), t("Canadian AML rules require this. We will only ask what is relevant.", 'Les regles canadiennes exigent ces renseignements. Nous ne demandons que ce qui est pertinent.')) +
+        (sole ? '' : `<div class="card-section" style="margin-top:0;padding-top:0;border-top:0"><h2 class="section-title">${t('Are you the Authorized Signatory?', 'Etes-vous le signataire autorise?')}</h2><div class="radio-grid cols-2">${radio(t('Yes', 'Oui'), t('I can sign for the business.', 'Je peux signer pour l entreprise.'), !signerNo)}${radio(t('No', 'Non'), t('Email the signer while I continue.', 'Envoyer un courriel au signataire pendant que je continue.'), signerNo)}</div></div>`) +
+        (signerNo ? banner('info', t('We will email the signer.', 'Nous enverrons un courriel au signataire.'), t('You can keep going with Payroll Setup while they complete ID verification.', 'Vous pouvez continuer la configuration de la paie pendant sa verification d identite.')) + `<div class="field-row">${field(t('Signer full name', 'Nom complet du signataire'), 'Laurent Tremblay')}${field(t('Signer email', 'Courriel du signataire'), 'laurent@biopick.ca', '', { type: 'email' })}</div>` : '') +
+        (sole ? '' : `<div class="card-section"><h2 class="section-title">${t('Does anyone other than yourself own 25% or more?', 'Quelqu un d autre detient-il 25 % ou plus?')}</h2><div class="radio-grid cols-2">${radio(t('No', 'Non'), t('Ownership is simple.', 'La propriete est simple.'), !multi)}${radio(t('Yes', 'Oui'), t('Add beneficial owners.', 'Ajouter les beneficiaires effectifs.'), multi)}</div></div>`) +
+        (multi ? `<div class="card-section"><h2 class="section-title">${t('Beneficial owners', 'Beneficiaires effectifs')} ${pill('green','82% total')}</h2><div class="chip-stack">${chip(t('Roberto Alvarez - applicant', 'Roberto Alvarez - demandeur'), t('42% ownership. Applicant chip uses primary tint.', '42 % de propriete. La fiche du demandeur utilise la teinte principale.'), t('Applicant', 'Demandeur'), true)}${chip('Maya Singh', '40% ownership - maya@example.ca', 'Owner', false, 'owner')}</div><button class="btn secondary" type="button" data-modal="owner" style="margin-top:12px">+ ${t('Add beneficial owner', 'Ajouter un beneficiaire')}</button></div>` : '') +
+        (!sole && v !== 1 ? `<div class="card-section"><h2 class="section-title">${t('Directors', 'Administrateurs')}</h2><div class="chip-stack">${chip('Laurent Tremblay', 'President - laurent@biopick.ca', 'Director', false, 'director')}</div><button class="btn secondary" type="button" data-modal="director" style="margin-top:12px">+ ${t('Add director', 'Ajouter un administrateur')}</button></div>` : '') +
+        `<div class="card-section"><h2 class="section-title">${t('Proof of ownership', 'Preuve de propriete')} <span class="help-icon" tabindex="0" data-tip="${t('Articles, master business licence, partnership agreement, or registry extract.', 'Statuts, permis d entreprise, contrat de societe ou extrait du registre.')}">?</span></h2><div class="drop-zone" data-file><div><strong>${t('Drop PDF, JPG, or PNG here', 'Deposez un PDF, JPG ou PNG ici')}</strong><div class="hint">10 MB max</div></div></div></div>` +
+        buttons();
+    }
+  },
+  {
+    id: 'idv-prescreen',
+    label: 'IDV prescreen',
+    step: 2,
+    variants: ['Applicant is signer', 'Signer emailed'],
+    render(v) {
+      const delegated = v === 1;
+      return head(t('Step 2 of 5 - ID & Bank', 'Etape 2 de 5 - ID et banque'), delegated ? t("You are all set for now", 'Vous avez termine pour l instant') : t("Let's verify your identity and bank", 'Verifions votre identite et votre banque'), delegated ? t('The signer will complete their side by email.', 'Le signataire terminera sa partie par courriel.') : t('This usually takes 3 to 5 minutes with our verification partner.', 'Cela prend habituellement 3 a 5 minutes avec notre partenaire de verification.')) +
+        (delegated ? banner('success', t('Email sent to Laurent Tremblay.', 'Courriel envoye a Laurent Tremblay.'), t('Reminder schedule: 24 hours and 72 hours. You can keep going with Payroll Setup and fund via e-Transfer, online bill payment, or wire while they complete ID verification.', 'Rappels prevus: 24 heures et 72 heures. Vous pouvez continuer la configuration et financer par Virement Interac, paiement de facture ou virement bancaire.')) :
+        banner('info', t('Three quick checks.', 'Trois verifications rapides.'), t('Photo ID, liveness selfie, and bank account sign-in. The provider may be DeepIDV or Interact; the user experience stays the same.', 'Piece d identite, autoportrait de vivacite et connexion bancaire. Le fournisseur peut changer; l experience reste la meme.'))) +
+        (delegated ? buttons(t('Continue to Payroll Setup', 'Continuer vers la configuration de la paie')) : `<div class="btn-row"><button class="btn secondary" type="button" data-next>${t('Enter manually', 'Saisir manuellement')}</button><div class="btn-group"><button class="btn ghost" type="button" data-prev>${t('Back', 'Retour')}</button><button class="btn primary" type="button" data-next>${t('Verify identity', 'Verifier l identite')}</button></div></div>`);
+    }
+  },
+  {
+    id: 'idv-interact',
+    label: 'QR handoff',
+    step: 2,
+    variants: ['Default', 'Link sent'],
+    render(v) {
+      return head(t('Step 2 of 5 - ID & Bank', 'Etape 2 de 5 - ID et banque'), t('Continue on your phone', 'Continuez sur votre telephone'), t('Scan the QR code or send yourself a secure link.', 'Scannez le code QR ou envoyez-vous un lien securise.')) +
+        (v === 1 ? banner('success', t('Secure link sent.', 'Lien securise envoye.'), t('Check your phone or email and continue there.', 'Verifiez votre telephone ou votre courriel et poursuivez.')) : '') +
+        `<div class="qr-layout"><div class="qr-box" aria-label="QR placeholder"></div><div><h2 class="section-title">${t('What we will check', 'Ce que nous verifierons')}</h2><ul><li>${t('Government photo ID', 'Piece d identite gouvernementale avec photo')}</li><li>${t('Liveness selfie', 'Autoportrait de vivacite')}</li><li>${t('Bank account sign-in', 'Connexion au compte bancaire')}</li></ul><p class="hint">${t('Estimated time: 3-5 minutes.', 'Duree estimee: 3 a 5 minutes.')}</p></div></div>
+        ${banner('info', t('Secure by design.', 'Securise par conception.'), t('We use 256-bit encryption with our verification partner. Your ID is never stored on PayEvo servers.', 'Nous utilisons un chiffrement 256 bits avec notre partenaire de verification. Votre piece d identite n est jamais stockee sur les serveurs PayEvo.'))}
+        <div class="btn-row"><button class="btn secondary" type="button" data-modal="send-link">${t('Send me a link', 'M envoyer un lien')}</button><div class="btn-group"><button class="btn secondary" type="button" data-prev>${t('Back', 'Retour')}</button><button class="btn primary" type="button" data-next>${t('I am ready - start', 'Je suis pret - demarrer')}</button></div></div>`;
+    }
+  },
+  {
+    id: 'idv-interact-wait',
+    label: 'IDV wait',
+    step: 2,
+    variants: ['ID capture active', 'Bank active', 'Timeout', 'Failed fallback'],
+    render(v) {
+      const timeout = v === 2 ? banner('warning', t('Still going?', 'Encore en cours?'), t('Try a fresh QR code if the phone session stalled.', 'Essayez un nouveau code QR si la session mobile est bloquee.')) : '';
+      const failed = v === 3 ? banner('error', t('Verification did not complete.', 'La verification n a pas ete terminee.'), t('No worries - manual bank verification is available and you can keep going.', 'Aucun probleme - la verification bancaire manuelle est disponible et vous pouvez continuer.')) : '';
+      const items = [
+        { title: t('Session started', 'Session demarree'), body: t('The secure phone session is open.', 'La session mobile securisee est ouverte.'), state: 'done' },
+        { title: t('ID capture + liveness', 'Capture ID + vivacite'), body: t('We will auto-advance when the provider is done.', 'Nous avancerons automatiquement a la fin.'), state: v >= 1 && v !== 3 ? 'done' : 'active' },
+        { title: t('Bank account verification', 'Verification du compte bancaire'), body: t('Returned accounts will appear next.', 'Les comptes retournes apparaitront ensuite.'), state: v === 1 ? 'active' : v === 3 ? 'pending' : 'pending' }
+      ];
+      return head(t('Step 2 of 5 - ID & Bank', 'Etape 2 de 5 - ID et banque'), t('Verifying on your phone...', 'Verification sur votre telephone...'), t('We will auto-advance when our verification partner is done.', 'Nous avancerons automatiquement lorsque notre partenaire aura termine.')) +
+        timeout + failed + stepper(items) + buttons(v === 3 ? t('Try manual verification', 'Essayer la verification manuelle') : t('Continue', 'Continuer'));
+    }
+  },
+  {
+    id: 'idv-bank',
+    label: 'Bank account',
+    step: 2,
+    variants: ['Single match', 'Mismatch selected', 'No accounts'],
+    render(v) {
+      const noAccounts = v === 2;
+      return head(t('Step 2 of 5 - ID & Bank', 'Etape 2 de 5 - ID et banque'), t('Choose the account for payroll funding', 'Choisissez le compte de financement de la paie'), t('This is the account PayEvo will use for approved payroll runs.', 'C est le compte que PayEvo utilisera pour les paies approuvees.')) +
+        (noAccounts ? banner('warning', t('No accounts were returned.', 'Aucun compte retourne.'), t('Enter bank details manually. You can keep going with Payroll Setup.', 'Saisissez les details bancaires manuellement. Vous pouvez continuer la configuration.')) : banner('success', t('ID verified - one more step.', 'Identite verifiee - une derniere etape.'), t('Select the business account you want to use.', 'Selectionnez le compte d entreprise a utiliser.'))) +
+        (noAccounts ? '' : `<div class="radio-grid">${radio('RBC Business Chequing ****1842', t('Royal Bank of Canada', 'Banque Royale du Canada'), v === 0, pill('green', t('Business name match', 'Nom d entreprise correspondant')))}${radio('TD Everyday Business ****0921', t('TD Canada Trust', 'TD Canada Trust'), v === 1, pill('amber', t('Name mismatch - routed to review', 'Nom different - revision requise')))}</div>`) +
+        (v === 1 ? banner('warning', t('We will route this to review.', 'Nous l acheminerons en revision.'), t('You can keep going with Payroll Setup while we confirm the account.', 'Vous pouvez continuer la configuration pendant que nous confirmons le compte.')) : '') +
+        buttons(noAccounts ? t('Enter bank manually', 'Saisir la banque manuellement') : t('Continue to PAD', 'Continuer vers PAD'), { disabled: false });
+    }
+  },
+  {
+    id: 'idv-pad',
+    label: 'PAD agreement',
+    step: 2,
+    variants: ['Unsigned', 'Typed and signed', 'Mobile touch signed'],
+    render(v) {
+      const signedName = v === 0 ? '' : 'Roberto Alvarez';
+      return head(t('Step 2 of 5 - ID & Bank', 'Etape 2 de 5 - ID et banque'), t('Sign your PAD agreement', 'Signez votre accord PAD'), t('Your Pre-Authorized Debit agreement authorizes PayEvo to withdraw funds for approved payroll runs.', 'Votre accord de debit preautorise permet a PayEvo de retirer les fonds des paies approuvees.')) +
+        `<div class="field"><label>${t('PAD agreement preview', 'Apercu de l accord PAD')}</label><div tabindex="0" style="max-height:160px;overflow:auto;border:1px solid var(--border-subtle);border-radius:var(--radius);background:var(--grey-50);padding:14px;font-size:14px;color:var(--grey-700)">PayEvo may debit the business bank account for approved payroll runs. The debit ceiling is calculated by PayEvo based on submitted payroll. Unusual runs may be held for review. No upfront ePay setup fee is collected during onboarding.</div></div>
+        ${field(t('Type your full legal name to sign', 'Tapez votre nom legal complet pour signer'), signedName, '', { required: true, id: 'signatureName' })}
+        <div class="signature-box" id="signaturePreview">${signedName || t('Signature appears here', 'La signature apparait ici')}</div>
+        <p class="hint">${t('By signing, you consent to electronic signature under PIPEDA and applicable provincial law.', 'En signant, vous consentez a la signature electronique selon la LPRPDE et les lois provinciales applicables.')}</p>` +
+        buttons(t('Sign and continue', 'Signer et continuer'), { success: true });
+    }
+  },
+  {
+    id: 'idv-manual',
+    label: 'Manual verification',
+    step: 2,
+    variants: ['Empty', 'Submitted'],
+    render(v) {
+      return head(t('Step 2 of 5 - ID & Bank', 'Etape 2 de 5 - ID et banque'), t("Let's try manual verification", 'Essayons la verification manuelle'), t('Micro-deposits verify ePay, but you are not blocked from running payroll.', 'Les micro-depots verifient ePay, mais vous pouvez continuer la paie.')) +
+        (v === 1 ? banner('success', t('Bank details submitted.', 'Coordonnees bancaires soumises.'), t('Micro-deposits will arrive in 1-2 business days.', 'Les micro-depots arriveront dans 1 a 2 jours ouvrables.')) : '') +
+        `<div class="field-row">${field(t('Financial Institution', 'Institution financiere'), 'RBC', '', { select: ['RBC','TD Canada Trust','Scotiabank','BMO','CIBC','National Bank'] })}${field(t('Branch transit', 'Transit de succursale'), '00012', '', { pattern: '[0-9]{5}' })}</div>
+        ${field(t('Account number', 'Numero de compte'), '1234567')}
+        <div class="drop-zone" data-file><div><strong>${t('Upload proof of bank ownership', 'Televerser une preuve de propriete bancaire')}</strong><div class="hint">PDF/JPG/PNG, 10 MB max</div></div></div>
+        ${banner('info', t('Micro-deposits are coming.', 'Les micro-depots arrivent.'), t('Confirm the two amounts in Settings when they arrive.', 'Confirmez les deux montants dans les Parametres a leur arrivee.'))}` +
+        buttons(t('Submit and continue', 'Soumettre et continuer'));
+    }
+  },
+  {
+    id: 'payroll-funding',
+    label: 'Funding',
+    step: 3,
+    variants: ['ePay ready', 'Pending standard', 'Manual review', 'Manual fallback'],
+    render(v) {
+      const ready = v === 0;
+      const stateCopy = v === 2 ? t('ePay direct deposit is being verified - manual review takes up to 72 hours.', 'Le depot direct ePay est en verification - la revision manuelle peut prendre jusqu a 72 heures.') : v === 3 ? t('ePay activates after micro-deposit confirmation in 1-2 business days.', 'ePay s active apres confirmation des micro-depots dans 1 a 2 jours ouvrables.') : undefined;
+      return head(t('Step 3 of 5 - Payroll', 'Etape 3 de 5 - Paie'), t('Running payroll soon?', 'Lancez-vous une paie bientot?'), t('We will use this to recommend the right first-run funding method.', 'Nous utiliserons ceci pour recommander le bon mode de financement.')) +
+        (ready ? banner('success', t('ePay ready.', 'ePay est pret.'), t('Direct deposit is approved for your first payroll.', 'Le depot direct est approuve pour votre premiere paie.')) : stateBanner(stateCopy)) +
+        `<div class="radio-grid cols-2">${radio(t('Yes, this week', 'Oui, cette semaine'), t('Show interim funding if ePay is pending.', 'Afficher le financement provisoire si ePay est en attente.'), true)}${radio(t('No, later', 'Non, plus tard'), t('Finish setup and come back when ready.', 'Terminer la configuration et revenir plus tard.'))}</div>` +
+        (ready ? '' : `<div class="card-section"><h2 class="section-title">${t('Choose interim funding', 'Choisir un financement provisoire')}</h2><div class="radio-grid cols-3">${radio(t('Interac e-Transfer', 'Virement Interac'), t('Fastest, recipient-confirmed, under $25K per run.', 'Le plus rapide, confirme par le destinataire, moins de 25 k$ par paie.'), true, pill('blue','Fast'))}${radio(t('Online bill payment', 'Paiement de facture en ligne'), t('Most banks, 1-2 business days, no fee.', 'La plupart des banques, 1 a 2 jours ouvrables, sans frais.'), false, pill('green','No fee'))}${radio(t('Wire transfer', 'Virement bancaire'), t('$10K+ runs, $15 flat fee.', 'Paies de 10 k$ et plus, frais fixes de 15 $.'))}</div></div>`) +
+        buttons();
+    }
+  },
+  {
+    id: 'payroll-basics',
+    label: 'Payroll basics',
+    step: 3,
+    variants: ['Default', 'QC active', 'ePay approved flash', 'Next-year prompt'],
+    render(v) {
+      return head(t('Step 3 of 5 - Payroll', 'Etape 3 de 5 - Paie'), t('Payroll basics', 'Bases de la paie'), t('Confirm the defaults we pre-selected for you.', 'Confirmez les valeurs par defaut que nous avons preselectionnees.')) +
+        (v === 2 ? banner('success', t('Your ePay has been approved!', 'Votre ePay est approuve!'), t('Direct deposit is ready for your first payroll.', 'Le depot direct est pret pour votre premiere paie.')) : stateBanner()) +
+        field(t('CRA Payroll Number', 'Numero de paie ARC'), '123456789RP0001', t('Format example: 123456789RP0001.', 'Exemple de format: 123456789RP0001.'), { tip: t('Business number + RP + four digits.', 'Numero d entreprise + RP + quatre chiffres.') }) +
+        (v === 1 ? field(t('Revenu Quebec Payroll Number', 'Numero de paie Revenu Quebec'), '1234567890RS0001', '', { required: true }) : '') +
+        `<div class="field-row">${field(t('Payroll year', 'Annee de paie'), v === 3 ? '2027' : '2026', v === 3 ? t('We pre-selected next year because it is after Nov 15.', 'Nous avons preselectionne l annee suivante, car la date est apres le 15 novembre.') : '', { select: ['2026','2027'] })}${field(t('Pay frequency', 'Frequence de paie'), 'Bi-weekly', t('We pre-selected bi-weekly based on your industry.', 'Nous avons preselectionne aux deux semaines selon votre industrie.'), { select: ['Weekly','Bi-weekly','Semi-monthly','Monthly'] })}</div>
+        <div class="field-row">${field(t('Cycle start', 'Debut du cycle'), '2026-05-04', '', { type: 'date' })}${field(t('Payment date', 'Date de paiement'), '2026-05-15', '', { type: 'date' })}</div>
+        ${field(t('CRA Remittance Frequency', 'Frequence de remise ARC'), 'Regular monthly', t('We pre-selected Regular monthly based on your payroll size.', 'Nous avons preselectionne mensuelle reguliere selon votre masse salariale.'), { select: ['Regular monthly','Quarterly','Accelerated threshold 1','Accelerated threshold 2'] })}
+        <div class="card-section"><h2 class="section-title">${t('EI Premium Rate', 'Taux de cotisation AE')} <span class="help-icon" tabindex="0" data-tip="${t('Default employer multiplier is 1.4x unless Service Canada approved a reduction.', 'Le multiplicateur par defaut est 1,4x sauf reduction approuvee par Service Canada.')}">?</span></h2><div class="radio-grid cols-2">${radio(t('Default 1.4x', 'Defaut 1,4x'), t('Most employers use this.', 'La plupart des employeurs utilisent ceci.'), true)}${radio(t('Approved reduction plan', 'Regime de reduction approuve'), t('Choose category 1-4.', 'Choisir categorie 1 a 4.'))}</div></div>` +
+        buttons();
+    }
+  },
+  {
+    id: 'payroll-provincial',
+    label: 'Provincial',
+    step: 3,
+    variants: ['ON only', 'QC active', 'Multi province', 'No add-ons'],
+    render(v) {
+      const no = v === 3;
+      const blocks = [];
+      if (v === 0 || v === 2) blocks.push(['ON EHT', '1.95% default with exemption applied.', 'Ontario employer health tax.']);
+      if (v === 1 || v === 2) blocks.push(['QC CNESST / HSF / QPIP', 'CNESST 1.37%, HSF 1.25%, QPIP 0.494% locked.', 'Revenu Quebec rates are set annually.']);
+      if (v === 2) blocks.push(['BC EHT', '$500K threshold note, 1.95% default.', 'Edit if employer category differs.'], ['MB HE Tax', '2.15% default.', 'Health and Education Levy.'], ['NL HAPSET', '2.00% default.', 'Health and post-secondary education tax.']);
+      return head(t('Step 3 of 5 - Payroll', 'Etape 3 de 5 - Paie'), t('Provincial payroll add-ons', 'Modules provinciaux de paie'), t('Only provinces that apply to your employees appear here.', 'Seules les provinces pertinentes apparaissent ici.')) +
+        stateBanner() +
+        (no ? banner('success', t('No provincial add-ons needed.', 'Aucun module provincial requis.'), t('We will skip this screen in production for this employer.', 'Nous sauterons cet ecran en production pour cet employeur.')) :
+        `<div class="chip-stack">${blocks.map(([title, summary, desc]) => chip(`${title} <span class="help-icon" tabindex="0" data-tip="${desc}">?</span>`, summary, 'Default')).join('')}</div>${banner('info', t('Rates are set annually.', 'Les taux sont fixes annuellement.'), t('Confirm or edit if your employer category differs.', 'Confirmez ou modifiez si votre categorie d employeur differe.'))}`) +
+        buttons();
+    }
+  },
+  {
+    id: 'payroll-policies',
+    label: 'Policies',
+    step: 3,
+    variants: ['All default', 'One edited'],
+    render(v) {
+      const edited = v === 1;
+      return head(t('Step 3 of 5 - Payroll', 'Etape 3 de 5 - Paie'), t('Confirm company defaults', 'Confirmer les valeurs par defaut'), t('Most teams can keep these defaults and continue.', 'La plupart des equipes peuvent conserver ces valeurs.')) +
+        stateBanner() +
+        `<div class="chip-stack">${chip(t('Vacation', 'Vacances'), t('4% paid on each cheque; jurisdiction minimum applied.', '4 % paye sur chaque cheque; minimum juridictionnel applique.'), edited ? 'Custom' : 'Default', edited, 'vacation')}${chip(t('Deductions', 'Retenues'), t('CPP, CPP2, EI, income tax locked on; optional deductions off.', 'RPC, RPC2, AE et impot actives; retenues optionnelles desactivees.'), 'Default', false, 'deductions')}${chip(t('Benefits', 'Avantages sociaux'), t('No health plan, no retirement plan, no waiting period.', 'Aucun regime de sante, aucun regime de retraite, aucun delai.'), 'Default', false, 'benefits')}${chip(t('Earning types', 'Types de gains'), t('Regular, overtime, bonus, commission available.', 'Regulier, heures supp., prime et commission disponibles.'), 'Default', false, 'earnings')}</div>` +
+        buttons(edited ? t('Continue with your changes', 'Continuer avec vos modifications') : t('Everything looks right - Continue', 'Tout est correct - Continuer'));
+    }
+  },
+  {
+    id: 'employees-choice',
+    label: 'Employees choice',
+    step: 4,
+    variants: ['Zero employees', 'Employees added'],
+    render(v) {
+      return head(t('Step 4 of 5 - Employees', 'Etape 4 de 5 - Employes'), t('Add your team', 'Ajouter votre equipe'), t('Import a list or add people one by one.', 'Importez une liste ou ajoutez les personnes une a une.')) +
+        stateBanner() +
+        `<div class="path-grid"><div class="path-card"><div class="path-top"><div><h3>${t('Import from CSV / Excel', 'Importer depuis CSV / Excel')}</h3><p>${t('Best for 5+ employees and cleaner handoff.', 'Ideal pour 5 employes ou plus.')}</p></div>${pill('blue','CSV')}</div><button class="btn secondary" type="button" data-next style="margin-top:14px">${t('Import file', 'Importer le fichier')}</button></div>
+        <div class="path-card"><div class="path-top"><div><h3>${t('Add one by one', 'Ajouter un par un')}</h3><p>${t('Best for small teams or contractors.', 'Ideal pour petites equipes ou contractuels.')}</p></div>${pill('green','Manual')}</div><button class="btn secondary" type="button" data-next style="margin-top:14px">${t('Add manually', 'Ajouter manuellement')}</button></div></div>` +
+        (v === 1 ? `<div class="card-section"><h2 class="section-title">${t('Employees already added', 'Employes deja ajoutes')}</h2>${table(['Name','Type','Province','Pay','Remove'], [{cells:['Sarah Chen','Employee','ON','$75,000','Remove']},{cells:['Dev Patel','Contractor','BC','$85/hr','Remove']}])}</div>` : '') +
+        buttons(v === 1 ? t('Continue to review', 'Continuer vers la revision') : t('Skip for now', 'Ignorer pour l instant'), { disabled: v === 0 });
+    }
+  },
+  {
+    id: 'employees-csv',
+    label: 'CSV import',
+    step: 4,
+    variants: ['Empty', 'Uploading', 'Partial success', 'Full success', 'All failed'],
+    render(v) {
+      const rows = [
+        { class: 'row-err', cells: ['7','Jon Lee','Employee','<input value="Onta" aria-label="Province row 7">','Province must be ON, QC, BC...'] },
+        { class: 'row-err', cells: ['12','M. Roy','Contractor','<input value="$" aria-label="Rate row 12">','Pay rate is required'] }
+      ];
+      return head(t('Step 4 of 5 - Employees', 'Etape 4 de 5 - Employes'), t('Import employees', 'Importer les employes'), t('CSV or XLSX, up to 5 MB.', 'CSV ou XLSX, jusqu a 5 Mo.')) +
+        stateBanner() +
+        `<button class="btn secondary" type="button">${t('Download template', 'Telecharger le modele')}</button>
+        <div class="drop-zone" data-file style="margin-top:14px"><div><strong>${v === 1 ? t('Uploading...', 'Televersement...') : t('Drop employee file here', 'Deposez le fichier employes ici')}</strong><div class="hint">${t('CSV or XLSX, up to 5 MB.', 'CSV ou XLSX, jusqu a 5 Mo.')}</div></div></div>` +
+        (v === 1 ? stepper([{title:t('Uploading file','Televersement du fichier'),body:t('Validating rows and required fields.','Validation des lignes et champs requis.'),state:'active'}]) : '') +
+        (v === 2 ? `${banner('warning', t('2 rows need a fix.', '2 lignes doivent etre corrigees.'), t('Edit inline and retry only these rows.', 'Modifiez directement et reessayez seulement ces lignes.'))}${table(['Row','Name','Type','Editable field','Error'], rows)}<button class="btn secondary" type="button" style="margin-top:12px">${t('Retry these rows', 'Reessayer ces lignes')}</button><div class="card-section"><h2 class="section-title">18 ${t('employees imported', 'employes importes')} ${pill('green','payroll_ready')}</h2></div>` : '') +
+        (v === 3 ? banner('success', t('20 employees imported.', '20 employes importes.'), t('Your team is payroll-ready. PayChequer invites are queued.', 'Votre equipe est prete pour la paie. Les invitations PayChequer sont en file.')) : '') +
+        (v === 4 ? banner('error', t('No rows could be imported.', 'Aucune ligne n a pu etre importee.'), t('Download the template or switch to manual entry.', 'Telechargez le modele ou passez a la saisie manuelle.')) : '') +
+        buttons(v >= 2 && v !== 4 ? t('Continue', 'Continuer') : t('Import employees', 'Importer les employes'));
+    }
+  },
+  {
+    id: 'employees-manual',
+    label: 'Manual employee',
+    step: 4,
+    variants: ['Employee', 'Contractor', 'Banking inline', 'SIN error'],
+    render(v) {
+      return head(t('Step 4 of 5 - Employees', 'Etape 4 de 5 - Employes'), t('Add a person', 'Ajouter une personne'), t('Collect essentials now. Employees can finish details in PayChequer.', 'Collectez l essentiel maintenant. Les employes peuvent finir dans PayChequer.')) +
+        stateBanner() +
+        `<div class="radio-grid cols-2">${radio('Employee (T4)', t('Payroll deductions and remittances apply.', 'Retenues et remises de paie applicables.'), v !== 1)}${radio('Contractor (T4A)', t('Different deduction defaults.', 'Valeurs de retenues differentes.'), v === 1)}</div>
+        <div class="field-row" style="margin-top:16px">${field(t('Legal Name', 'Nom legal'), v === 1 ? 'Dev Patel' : 'Sarah Chen')}${field(t('Nickname', 'Surnom'), v === 1 ? 'Dev' : 'Sarah')}</div>
+        <div class="field-row">${field(t('Personal Email', 'Courriel personnel'), v === 1 ? 'dev@example.ca' : 'sarah@example.ca', '', { type: 'email' })}${field(t('Mobile Phone', 'Telephone mobile'), '(647) 555-0141')}</div>
+        <div class="field-row">${field(t('Date of Hire', 'Date d embauche'), '2026-05-01', '', { type: 'date' })}${field(t('Province of Employment', 'Province d emploi'), 'Ontario', '', { select: ['Ontario','Quebec','British Columbia'] })}</div>
+        <div class="field-row">${field('SIN', v === 3 ? '12345' : '123 456 789', t('Encrypted at rest; only last 3 digits show after save.', 'Chiffre au repos; seuls les 3 derniers chiffres sont affiches apres sauvegarde.'), { error: v === 3 ? t('SIN must be 9 digits.', 'Le NAS doit avoir 9 chiffres.') : '' })}${field(t('Date of Birth', 'Date de naissance'), '1991-08-17', '', { type: 'date' })}</div>
+        <div class="field-row">${field(t('Pay Type', 'Type de paie'), v === 1 ? 'Hourly' : 'Salaried', '', { select: ['Salaried','Hourly'] })}${field(t('Pay Rate', 'Taux de paie'), v === 1 ? '$85/hr' : '$75,000/year')}</div>
+        <div class="chip-stack">${chip(t('Payroll rules', 'Regles de paie'), t('Inherited from company.', 'Herite de l entreprise.'), t('Inherited', 'Herite'), true)}${chip(t('YTD payroll', 'Paie cumul annuel'), t('Optional mid-year switcher totals.', 'Totaux facultatifs pour changement en milieu d annee.'), t('Optional', 'Facultatif'), false, 'ytd')}${chip(t('Banking', 'Coordonnees bancaires'), t("Leave blank and we will email them to add details via PayChequer.", 'Laissez vide et nous leur demanderons via PayChequer.'), t('Optional', 'Facultatif'), v === 2)}</div>` +
+        (v === 2 ? `<div class="card-section"><div class="field-row">${field(t('Transit', 'Transit'), '00012')}${field(t('Account', 'Compte'), '1234567')}</div></div>` : '') +
+        buttons(t('Save and add another', 'Enregistrer et ajouter un autre'));
+    }
+  },
+  {
+    id: 'employees-review',
+    label: 'Employees review',
+    step: 5,
+    size: 'wide',
+    variants: ['ePay ready', 'Interim funding'],
+    render(v) {
+      return head(t('Step 5 of 5 - Run', 'Etape 5 de 5 - Lancer'), t('Review your team', 'Reviser votre equipe'), t('You are ready to launch the first payroll.', 'Vous etes pret a lancer la premiere paie.')) +
+        (v === 1 ? stateBanner(t('Payroll ready via Interac e-Transfer. ePay direct deposit is still being verified and will activate automatically.', 'Paie prete via Virement Interac. Le depot direct ePay est encore en verification et s activera automatiquement.')) : '') +
+        table(['Name','Type','Province','SIN','Pay rate','Remove'], [
+          {cells:['Sarah Chen<br><span class="hint">sarah@example.ca</span>','Employee','ON','***-***-789','$75,000','Remove']},
+          {cells:['Dev Patel<br><span class="hint">dev@example.ca</span>','Contractor','BC','***-***-224','$85/hr','Remove']}
+        ]) +
+        `<p class="hint">${t('PayChequer invites have been queued for employees with email addresses.', 'Les invitations PayChequer sont en file pour les employes avec courriel.')}</p>` +
+        buttons(t('Run your first payroll', 'Lancer votre premiere paie'), { large: true });
+    }
+  },
+  {
+    id: 'manual-review-waiting',
+    label: 'Manual review',
+    step: 5,
+    variants: ['Waiting', 'Approaching SLA', 'Approved'],
+    render(v) {
+      const approaching = v === 1;
+      const approved = v === 2;
+      return head(t('Step 5 of 5 - Run', 'Etape 5 de 5 - Lancer'), approved ? t('You are approved', 'Vous etes approuve') : t('Your account is being reviewed', 'Votre compte est en revision'), approved ? t('You can run payroll now.', 'Vous pouvez lancer la paie maintenant.') : t('We are reviewing the business structure and funding setup.', 'Nous revisons la structure de l entreprise et le financement.')) +
+        (approaching ? banner('warning', t('Review is approaching the SLA.', 'La revision approche de l echeance.'), t('Expected decision within 11 hours 42 minutes.', 'Decision prevue dans 11 heures 42 minutes.')) : banner(approved ? 'success' : 'info', approved ? t('Approved.', 'Approuve.') : t('Nothing else needed.', 'Rien d autre a faire.'), approved ? t('Payroll run is available.', 'La paie est disponible.') : t('We will email you the moment your account is approved.', 'Nous vous enverrons un courriel des que le compte sera approuve.'))) +
+        stepper([
+          { title: t('Business details submitted', 'Details de l entreprise soumis'), body: 'Apr 29, 2026 10:12', state: 'done' },
+          { title: t('Employees added', 'Employes ajoutes'), body: 'Apr 29, 2026 10:21', state: 'done' },
+          { title: t('Compliance review in progress', 'Revision de conformite en cours'), body: approved ? t('Completed.', 'Terminee.') : `${t('SLA deadline', 'Echeance SLA')}: May 2, 2026 10:21 - <span data-countdown>in 2 days 4 hours</span>`, state: approved ? 'done' : 'active' },
+          { title: t('Approved - run payroll', 'Approuve - lancer la paie'), body: approved ? t('Ready now.', 'Pret maintenant.') : t('Next step unlocks automatically.', 'La prochaine etape se debloque automatiquement.'), state: approved ? 'done' : 'pending' }
+        ]) +
+        buttons(approved ? t('Run payroll', 'Lancer la paie') : t('Back to employees', 'Retour aux employes'), { disabled: !approved });
+    }
+  },
+  {
+    id: 'run-payroll',
+    label: 'Run payroll',
+    step: 5,
+    size: 'wide',
+    variants: ['ePay funding', 'Interim bill payment', 'AML hold language'],
+    render(v) {
+      const method = v === 0 ? 'ePay' : v === 1 ? t('Online bill payment', 'Paiement de facture en ligne') : 'ePay';
+      return head(t('Step 5 of 5 - Run', 'Etape 5 de 5 - Lancer'), t('Review and run first payroll', 'Reviser et lancer la premiere paie'), t('Pay period: May 4 - May 17, 2026', 'Periode de paie: 4 mai - 17 mai 2026'), pill('blue', 'Bi-weekly')) +
+        banner(v === 2 ? 'warning' : 'info', v === 2 ? t('First payroll review may apply.', 'Une revision de premiere paie peut s appliquer.') : t('First payroll? Here is what to expect.', 'Premiere paie? Voici a quoi vous attendre.'), `${t('Funding method', 'Mode de financement')}: ${method}. ${t('Watch the 90-second explainer.', 'Regarder l explication de 90 secondes.')}`) +
+        table(['Name','Hours / Salary','Gross','Deductions','Net'], [
+          {cells:['Sarah Chen','80.0 hrs','$2,884.62','$748.20','$2,136.42']},
+          {cells:['Dev Patel','Contract','$1,360.00','$0.00','$1,360.00']},
+          {class:'totals-row', cells:['Totals','',' $4,244.62','$748.20','$3,496.42']}
+        ]) +
+        `<div class="card-section"><h2 class="section-title">${t('CRA remittance', 'Remise ARC')}</h2>${table(['CPP','EI','Income tax','Due date'], [{cells:['$143.27','$46.38','$558.55','Jun 15, 2026']}])}</div>` +
+        `<div class="btn-row"><button class="btn ghost" type="button" data-prev>${t('Back', 'Retour')}</button><div class="btn-group"><button class="btn secondary" type="button">${t('Save draft', 'Enregistrer brouillon')}</button><button class="btn success large" type="button" data-next>${t('Submit payroll', 'Soumettre la paie')}</button></div></div>`;
+    }
+  },
+  {
+    id: 'activation-submitted',
+    label: 'Submitted',
+    step: 5,
+    variants: ['Awaiting funding', 'AML hold', 'Funding in progress'],
+    render(v) {
+      const hold = v === 1;
+      return `<div style="text-align:center;margin-bottom:18px">${pill(hold ? 'amber' : 'blue', hold ? t('Submitted - verifying payroll', 'Soumis - verification de la paie') : t('Submitted - awaiting funding', 'Soumis - en attente de financement'))}</div>` +
+        head(t('Step 5 of 5 - Run', 'Etape 5 de 5 - Lancer'), t('Payroll is on its way', 'La paie est en route'), t("Your first PayEvo payroll has been submitted. Funds settle in 1-2 business days, and we will confirm activation when they are in your employees' accounts.", 'Votre premiere paie PayEvo a ete soumise. Les fonds sont regles en 1 a 2 jours ouvrables et nous confirmerons l activation lorsque les employes les recevront.')) +
+        (hold ? banner('warning', t('We are verifying this payroll before funds move.', 'Nous verifions cette paie avant le mouvement des fonds.'), t('Typical resolution: under 4 business hours. Funding hold timer: 3h 42m remaining.', 'Resolution typique: moins de 4 heures ouvrables. Minuteur: 3 h 42 restantes.')) : v === 2 ? banner('info', t('Funding in progress.', 'Financement en cours.'), t('Debit initiated at 10:42. We will update this page automatically.', 'Debit initie a 10:42. Cette page sera mise a jour automatiquement.')) : '') +
+        statCards([{label:t('Employees paid','Employes payes'),value:'2'},{label:t('Total gross','Brut total'),value:'$4,244.62'},{label:t('Time so far','Temps ecoule'),value:'24 min'}]) +
+        `<div class="card-section">${banner('info', t('CRA remittance scheduled.', 'Remise ARC planifiee.'), t('We will remit by Jun 15, 2026.', 'Nous remettrons les montants avant le 15 juin 2026.'))}<h2 class="section-title">${t("What's next", 'Etapes suivantes')}</h2>${nextCards()}</div>` +
+        buttons(t('View funded state', 'Voir l etat finance'), { noBack: false });
+    }
+  },
+  {
+    id: 'activation-funded',
+    label: 'Funded activation',
+    step: 5,
+    variants: ['Funded'],
+    render() {
+      return `<div class="celebration"><div class="success-mark" aria-hidden="true">&#127881;</div>${head(t('Activated', 'Active'), t("You are activated", 'Votre compte est active'), t('Your first payroll is funded and on its way to your team. This is the moment that matters.', 'Votre premiere paie est financee et en route vers votre equipe. C est le moment important.'))}</div>` +
+        statCards([{label:t('Employees paid','Employes payes'),value:'2'},{label:t('Total gross','Brut total'),value:'$4,244.62'},{label:t('Time to first payroll','Temps jusqu a la premiere paie'),value:'27 min'}]) +
+        `<div class="card-section">${banner('success', t('Funded via ePay.', 'Finance par ePay.'), t('Confirmed at Apr 30, 2026 11:04.', 'Confirme le 30 avril 2026 a 11:04.'))}<h2 class="section-title">${t("What's next", 'Etapes suivantes')}</h2>${nextCards()}</div>` +
+        buttons(t('Go to dashboard', 'Aller au tableau de bord'), { noBack: true });
+    }
+  },
+  {
+    id: 'funding-failed',
+    label: 'Funding failed',
+    step: 5,
+    variants: ['NSF', 'Bank rejected', 'Hold timeout'],
+    render(v) {
+      const reason = v === 0 ? t('The bank returned insufficient funds.', 'La banque a retourne fonds insuffisants.') : v === 1 ? t('The bank rejected the PAD debit.', 'La banque a refuse le debit PAD.') : t('The payroll review did not clear before the hold timeout.', 'La revision de la paie n a pas ete terminee avant l expiration du delai.');
+      return banner('error', t("We could not fund your first payroll.", 'Nous n avons pas pu financer votre premiere paie.'), reason) +
+        head(t('Step 5 of 5 - Run', 'Etape 5 de 5 - Lancer'), t("Let's get this back on track", 'Remettons cette paie sur la bonne voie'), t('No blame, just the next best action. Choose a recovery path below.', 'Aucun blame, seulement la prochaine meilleure action. Choisissez une option ci-dessous.')) +
+        `<div class="path-grid"><div class="path-card"><h3>${t('Add a new bank', 'Ajouter une nouvelle banque')}</h3><p>${t('Use a different business account for funding.', 'Utiliser un autre compte d entreprise.')}</p></div><div class="path-card"><h3>${t('Switch to e-Transfer', 'Passer au Virement Interac')}</h3><p>${t('Fastest recovery for small payrolls.', 'Recuperation la plus rapide pour petites paies.')}</p></div><div class="path-card"><h3>${t('Chat with our team', 'Clavarder avec notre equipe')}</h3><p>${t('We can help pick the right funding path.', 'Nous pouvons vous aider a choisir.')}</p></div></div>
+        <div class="card-section"><h2 class="section-title">${t('What happened', 'Ce qui s est passe')}</h2><div class="timeline"><div class="timeline-item"><div class="timeline-time">10:42</div><div>${t('Debit attempted', 'Debit tente')}</div></div><div class="timeline-item"><div class="timeline-time">11:06</div><div>${reason}</div></div><div class="timeline-item"><div class="timeline-time">Now</div><div>${t('Recovery options unlocked', 'Options de recuperation disponibles')}</div></div></div></div>` +
+        buttons(t('Choose recovery path', 'Choisir une option'), { danger: false });
+    }
+  },
+  {
+    id: 'error-international',
+    label: 'International',
+    step: 0,
+    size: 'narrow',
+    variants: ['Terminal'],
+    render() {
+      return head(t('International Plus', 'International Plus'), t('We have a better fit for you', 'Nous avons une meilleure option pour vous'), t('PayEvo payroll onboarding is for Canadian employers. International Plus supports teams operating outside Canada.', 'L inscription PayEvo Paie est destinee aux employeurs canadiens. International Plus aide les equipes hors Canada.')) +
+        banner('info', t('You can keep moving.', 'Vous pouvez continuer.'), t('This path connects you with the right international setup instead of ending the flow.', 'Ce parcours vous connecte au bon processus international au lieu de bloquer.')) +
+        buttons(t('Explore International Plus', 'Explorer International Plus'), { noBack: true });
+    }
+  }
+];
+
+const modals = {
+  help: {
+    title: t('Chat with PayEvo', 'Clavarder avec PayEvo'),
+    subtitle: t('Help is available throughout onboarding.', 'L aide est disponible pendant toute l inscription.'),
+    body: () => `${banner('info', t('Live chat placeholder.', 'Espace reserve au clavardage.'), t('Production opens the support chat or bot fallback here.', 'En production, le clavardage ou le robot d aide s ouvre ici.'))}`
+  },
+  'send-link': {
+    title: t('Send secure link', 'Envoyer un lien securise'),
+    subtitle: t('Choose where to receive the phone handoff.', 'Choisissez ou recevoir le lien mobile.'),
+    body: () => `${field(t('Mobile phone', 'Telephone mobile'), '(647) 555-0141')}${field(t('Email', 'Courriel'), 'roberto@biopick.ca', '', { type: 'email' })}`
+  },
+  vacation: {
+    title: t('Vacation policy', 'Politique de vacances'),
+    subtitle: t('Edit the company vacation default.', 'Modifier la valeur par defaut des vacances.'),
+    body: () => `<div class="radio-grid cols-2">${radio(t('Paid on cheque', 'Paye sur le cheque'), '4%', true)}${radio(t('Accrued bank', 'Banque accumulee'), t('Track balance for payout.', 'Suivre le solde pour paiement.'))}</div><div class="grid-3" style="margin-top:16px">${field(t('Base rate', 'Taux de base'), '4%')}${field(t('Step-up years', 'Annees avant hausse'), '5')}${field(t('New rate', 'Nouveau taux'), '6%')}</div><label class="checkbox-row"><input type="checkbox"><span>${t('Also accrue for contractors', 'Accumuler aussi pour les contractuels')}</span></label>`
+  },
+  deductions: {
+    title: t('Deductions', 'Retenues'),
+    subtitle: t('Statutory deductions are locked on.', 'Les retenues obligatoires sont verrouillees.'),
+    body: () => `${banner('info', t('Locked by payroll rules.', 'Verrouille par les regles de paie.'), 'CPP, CPP2, EI, income tax, provincial tax')}<div class="grid-2">${['Union dues','Garnishment','Loan repayment','Charity','Parking','Custom'].map(x => `<label class="checkbox-row"><input type="checkbox"><span>${x}</span></label>`).join('')}</div>${field(t('Custom deduction', 'Retenue personnalisee'), '', '', { placeholder: t('Add deduction name', 'Ajouter le nom') })}`
+  },
+  benefits: {
+    title: t('Benefits', 'Avantages sociaux'),
+    subtitle: t('Choose optional benefit defaults.', 'Choisissez les valeurs par defaut optionnelles.'),
+    body: () => `<div class="radio-grid cols-2">${radio(t('None', 'Aucun'), t('No health coverage.', 'Aucune couverture sante.'), true)}${radio('Basic', t('Entry health package.', 'Forfait sante de base.'))}${radio('Standard', t('Most common.', 'Le plus courant.'))}${radio('Premium', t('Expanded coverage.', 'Couverture etendue.'))}</div><div class="field-row" style="margin-top:16px">${field(t('Retirement', 'Retraite'), 'None', '', { select: ['None','Group RRSP','DCPP','DBPP'] })}${field(t('Wellness stipend', 'Allocation mieux-etre'), '$0/mo')}</div>${field(t('Waiting period', 'Delai d attente'), 'None', '', { select: ['None','30 days','90 days'] })}`
+  },
+  earnings: {
+    title: t('Earning types', 'Types de gains'),
+    subtitle: t('Regular earnings are locked on.', 'Les gains reguliers sont verrouilles.'),
+    body: () => `<div class="grid-2">${['Regular (locked)','Overtime','Double time','Bonus','Commission','Retro pay','Vacation payout','Stat holiday','Sick pay','Car allowance','Reimbursement','Custom'].map((x,i) => `<label class="checkbox-row"><input type="checkbox" ${i < 4 ? 'checked' : ''} ${i === 0 ? 'disabled' : ''}><span>${x}</span></label>`).join('')}</div>${field(t('Custom earning', 'Gain personnalise'), '', '', { placeholder: t('Add earning name', 'Ajouter le nom') })}`
+  },
+  owner: {
+    title: t('Beneficial owner', 'Beneficiaire effectif'),
+    subtitle: t('Add or edit an owner with 25% or more.', 'Ajouter ou modifier un proprietaire de 25 % ou plus.'),
+    body: () => `${field(t('Full legal name', 'Nom legal complet'), 'Maya Singh')}${field(t('Date of birth', 'Date de naissance'), '1984-03-21', '', { type: 'date' })}<div class="field-row">${field(t('Ownership %', '% de propriete'), '40', t('18% remaining before reaching 100%.', '18 % restant avant 100 %.'))}${field(t('Email optional', 'Courriel facultatif'), 'maya@example.ca', '', { type: 'email' })}</div>${field(t('Residential address', 'Adresse residentielle'), '44 King Street W, Toronto')}${banner('info','FINTRAC',t('Collect enough ownership to explain at least 75% where possible.', 'Recueillez assez de propriete pour expliquer au moins 75 % si possible.'))}`
+  },
+  director: {
+    title: t('Director', 'Administrateur'),
+    subtitle: t('Add or edit a corporate director.', 'Ajouter ou modifier un administrateur.'),
+    body: () => `${field(t('Full legal name', 'Nom legal complet'), 'Laurent Tremblay')}${field(t('Role', 'Role'), 'President', '', { select: ['Director','Chair','President','Secretary','Treasurer','Other'] })}<div class="field-row">${field(t('Date of birth optional', 'Date de naissance facultative'), '', '', { type: 'date' })}${field(t('Email optional', 'Courriel facultatif'), 'laurent@biopick.ca', '', { type: 'email' })}</div>`
+  },
+  ytd: {
+    title: t('YTD payroll totals', 'Totaux de paie cumul annuel'),
+    subtitle: t('Optional mid-year switcher reconciliation.', 'Rapprochement facultatif pour changement en milieu d annee.'),
+    body: () => `<div class="grid-2">${[
+      ['Gross earnings YTD','$18,400.00'],
+      ['Federal tax YTD','$2,100.00'],
+      ['Provincial tax YTD','$1,140.00'],
+      ['CPP / CPP2 YTD','$888.40'],
+      ['EI YTD','$302.20'],
+      ['Vacation accrual carry-in','$736.00']
+    ].map(([label, value]) => field(label, value)).join('')}</div>${banner('info', t('Validation owner: tax engine.', 'Responsable validation: moteur fiscal.'), t('The design provides the input contract; payroll calculation validates totals.', 'Le design fournit le contrat de saisie; le moteur de paie valide les totaux.'))}`
+  }
+};
+
+function currentScreen() {
+  return screens[appState.screenIndex];
+}
+
+function renderStepProgress() {
+  const activeStep = currentScreen().step;
+  document.getElementById('stepProgress').innerHTML = steps.map((step, index) => {
+    const number = index + 1;
+    const state = activeStep > number ? 'done' : activeStep === number ? 'active' : '';
+    return `<div class="step-item ${state}"><div class="step-dot">${state === 'done' ? '&check;' : number}</div><div>${t(step.label, step.fr)}</div></div>`;
+  }).join('');
+}
+
+function renderToolbar() {
+  const screenSelect = document.getElementById('screenSelect');
+  screenSelect.innerHTML = screens.map((screen, index) => `<option value="${index}" ${index === appState.screenIndex ? 'selected' : ''}>${String(index).padStart(2, '0')} - ${screen.label}</option>`).join('');
+  const variants = currentScreen().variants || ['Default'];
+  const variantSelect = document.getElementById('variantSelect');
+  variantSelect.innerHTML = variants.map((name, index) => `<option value="${index}" ${index === appState.variantIndex ? 'selected' : ''}>${name}</option>`).join('');
+  document.getElementById('screenCounter').textContent = `${appState.screenIndex + 1} of ${screens.length}`;
+  document.getElementById('prevScreen').disabled = appState.screenIndex === 0;
+  document.getElementById('nextScreen').disabled = appState.screenIndex === screens.length - 1;
+}
+
+function render() {
+  const screen = currentScreen();
+  const frame = document.getElementById('screenFrame');
+  frame.className = `card ${screen.size || ''}`;
+  const variants = screen.variants || ['Default'];
+  if (appState.variantIndex >= variants.length) appState.variantIndex = 0;
+  frame.innerHTML = screen.render(appState.variantIndex);
+  frame.focus({ preventScroll: true });
+  renderStepProgress();
+  renderToolbar();
+  bindSignature();
+}
+
+function go(delta) {
+  const next = Math.min(Math.max(appState.screenIndex + delta, 0), screens.length - 1);
+  appState.screenIndex = next;
+  appState.variantIndex = 0;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function markSaving() {
+  const saveText = document.getElementById('saveText');
+  saveText.textContent = t('Saving...', 'Enregistrement...');
+  clearTimeout(appState.savedTimer);
+  appState.savedTimer = setTimeout(() => {
+    saveText.textContent = t('Saved', 'Enregistre');
+  }, 800);
+}
+
+function openModal(key) {
+  const modal = modals[key];
+  if (!modal) return;
+  const root = document.getElementById('modalRoot');
+  root.classList.add('open');
+  root.setAttribute('aria-hidden', 'false');
+  root.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head"><div><h2 id="modalTitle">${modal.title}</h2><p>${modal.subtitle || ''}</p></div><button type="button" class="modal-close" data-close-modal aria-label="${t('Close modal', 'Fermer la fenetre')}">&times;</button></div>
+    <div class="modal-body">${modal.body()}</div>
+    <div class="modal-actions"><button type="button" class="btn ghost" data-close-modal>${t('Cancel', 'Annuler')}</button><button type="button" class="btn primary" data-save-modal>${key === 'ytd' ? t('Save YTD totals', 'Enregistrer les totaux') : t('Save changes', 'Enregistrer')}</button></div>
+  </div>`;
+  root.querySelector('.modal-close').focus();
+}
+
+function closeModal() {
+  const root = document.getElementById('modalRoot');
+  root.classList.remove('open');
+  root.setAttribute('aria-hidden', 'true');
+  root.innerHTML = '';
+}
+
+function bindSignature() {
+  const name = document.getElementById('signatureName');
+  const preview = document.getElementById('signaturePreview');
+  if (!name || !preview) return;
+  name.addEventListener('input', () => {
+    preview.textContent = name.value || t('Signature appears here', 'La signature apparait ici');
+  });
+}
+
+document.addEventListener('click', event => {
+  const radioCard = event.target.closest('.radio-card');
+  if (radioCard && radioCard.parentElement) {
+    radioCard.parentElement.querySelectorAll('.radio-card').forEach(card => {
+      card.classList.remove('selected');
+      card.setAttribute('aria-checked', 'false');
+    });
+    radioCard.classList.add('selected');
+    radioCard.setAttribute('aria-checked', 'true');
+    markSaving();
+  }
+  const file = event.target.closest('[data-file]');
+  if (file) {
+    file.innerHTML = `<div>${chip(t('Document uploaded', 'Document televerse'), 'ownership-proof.pdf - 842 KB', t('Uploaded', 'Televerse'), true)}</div>`;
+    markSaving();
+  }
+  const modalButton = event.target.closest('[data-modal]');
+  if (modalButton) openModal(modalButton.dataset.modal);
+  if (event.target.closest('[data-close-modal]')) closeModal();
+  if (event.target.closest('[data-save-modal]')) {
+    closeModal();
+    markSaving();
+  }
+  if (event.target.closest('[data-next]')) go(1);
+  if (event.target.closest('[data-prev]')) go(-1);
+});
+
+document.addEventListener('input', event => {
+  if (event.target.matches('input, select, textarea')) markSaving();
+});
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') closeModal();
+  if (event.target.matches('[data-otc] input')) {
+    const inputs = [...event.target.closest('[data-otc]').querySelectorAll('input')];
+    const index = inputs.indexOf(event.target);
+    setTimeout(() => {
+      if (event.target.value && inputs[index + 1]) inputs[index + 1].focus();
+    }, 0);
+  }
+});
+
+document.addEventListener('paste', event => {
+  if (!event.target.matches('[data-otc] input')) return;
+  const digits = event.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6).split('');
+  const inputs = [...event.target.closest('[data-otc]').querySelectorAll('input')];
+  digits.forEach((digit, index) => { if (inputs[index]) inputs[index].value = digit; });
+  if (digits.length === 6) markSaving();
+  event.preventDefault();
+});
+
+document.querySelector('.lang-toggle').addEventListener('click', event => {
+  const button = event.target.closest('button[data-lang]');
+  if (!button) return;
+  appState.lang = button.dataset.lang;
+  document.documentElement.lang = appState.lang === 'fr' ? 'fr-CA' : 'en';
+  document.querySelectorAll('.lang-toggle button').forEach(btn => btn.classList.toggle('active', btn === button));
+  render();
+});
+
+document.getElementById('screenSelect').addEventListener('change', event => {
+  appState.screenIndex = Number(event.target.value);
+  appState.variantIndex = 0;
+  render();
+});
+document.getElementById('variantSelect').addEventListener('change', event => {
+  appState.variantIndex = Number(event.target.value);
+  render();
+});
+document.getElementById('prevScreen').addEventListener('click', () => go(-1));
+document.getElementById('nextScreen').addEventListener('click', () => go(1));
+
+setInterval(() => {
+  document.querySelectorAll('[data-countdown]').forEach(node => {
+    node.textContent = appState.lang === 'fr' ? 'dans 2 jours 4 heures' : 'in 2 days 4 hours';
+  });
+}, 60000);
+
+render();
+</script>
+</body>
+</html>
