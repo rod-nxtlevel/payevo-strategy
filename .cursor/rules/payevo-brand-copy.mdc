@@ -1,0 +1,14 @@
+---
+description: Keep product and marketing copy in PayEvo voice
+globs: **/*.{md,html,jsx,tsx}
+alwaysApply: true
+---
+
+# PayEvo Brand Copy
+
+- Write in plain, practical language for Canadian SMB payroll users.
+- Prefer real payroll nouns where appropriate: CRA, T4, ROE, CPP, EI, direct deposit.
+- Use sentence case for general UI copy and headings.
+- Use Title Case for button labels (for example: `Add Employee`, `Run Payroll`).
+- Keep tone pragmatic and lightly warm; avoid enterprise jargon and jokes.
+- Do not use emoji in product UI copy.

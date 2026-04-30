@@ -1,0 +1,13 @@
+---
+description: Enforce token-first styling for HTML CSS and JSX work
+globs: **/*.{html,css,jsx,tsx}
+alwaysApply: true
+---
+
+# Token-First Styling
+
+- Always import and use `PayEvo Design System/colors_and_type.css` for new UI surfaces.
+- Prefer token variables such as `var(--pe-primary)` and `var(--space-20)` instead of hardcoded values.
+- Avoid hardcoded hex, rgb, and hsl values in component styles unless a documented exception is required.
+- If a hardcoded value is unavoidable, add a brief inline comment explaining why and reference the closest token.
+- Keep visual behavior aligned to documented button, card, form, and state patterns in `PayEvo Design System/README.md`.

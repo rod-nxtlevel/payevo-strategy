@@ -1,0 +1,13 @@
+---
+description: Core PayEvo design system guardrails for all work
+alwaysApply: true
+---
+
+# PayEvo Design System Foundation
+
+- The source of truth for design tokens is `PayEvo Design System/colors_and_type.css`.
+- The source of truth for brand and UX guidance is `PayEvo Design System/README.md` and `PayEvo Design System/SKILL.md`.
+- Do not introduce new colors, radii, spacing values, typography scales, or shadows outside design tokens unless the user explicitly asks.
+- Do not introduce new font families for UI; use Open Sans weights 300/400/600/700.
+- Prefer reusing existing PayEvo components and patterns before creating new visual variants.
+- If a request conflicts with these standards, ask for confirmation before proceeding.

@@ -1,0 +1,16 @@
+{
+  "name": "payevo-strategy",
+  "private": true,
+  "version": "1.0.0",
+  "description": "PayEvo strategy and design-system enforcement tooling",
+  "scripts": {
+    "lint:styles": "stylelint \"**/*.{css,html}\"",
+    "test:visual": "playwright test",
+    "test:visual:update": "playwright test --update-snapshots"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.53.1",
+    "postcss-html": "^1.8.0",
+    "stylelint": "^16.23.1"
+  }
+}

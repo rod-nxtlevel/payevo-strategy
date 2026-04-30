@@ -1,0 +1,421 @@
+/* =========================================================
+   PayEvo Design System — Tokens
+   Source of truth: Default.tokens.json (Figma variables export)
+   Every value in this file maps 1:1 to a Figma token. New
+   colors / sizes must be added to the .tokens.json first.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   Open Sans — official brand font, served from /fonts.
+   Variable TTFs (wdth + wght axes) cover the entire weight
+   range the design system uses; one face per style.
+   --------------------------------------------------------- */
+@font-face {
+  font-family: "Open Sans";
+  src: url("fonts/OpenSans-VariableFont_wdth_wght.ttf") format("truetype-variations"),
+       url("fonts/OpenSans-VariableFont_wdth_wght.ttf") format("truetype");
+  font-weight: 300 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("fonts/OpenSans-Italic-VariableFont_wdth_wght.ttf") format("truetype-variations"),
+       url("fonts/OpenSans-Italic-VariableFont_wdth_wght.ttf") format("truetype");
+  font-weight: 300 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* =====================================================
+     COLOR — paymentEvolution (umbrella brand)
+     ===================================================== */
+  --pe-primary:        hwb(205.86 13.33% 18.43%);   /* Bright Navy Blue — system primary */
+  --pe-secondary:      hwb(0 100% 0%);   /* white */
+  --pe-secondary-sid:  hwb(55.88 37.25% 0%);   /* SID yellow accent (rare) */
+
+  /* =====================================================
+     COLOR — Blue ramp (primary brand)
+     7-step tint scale: 100/80/60/40/20/10/5 %
+     ===================================================== */
+  --blue-100: hwb(205.86 13.33% 18.43%);
+  --blue-80:  hwb(205.9 30.59% 14.9%);
+  --blue-60:  hwb(205.71 47.84% 10.98%);
+  --blue-40:  hwb(206.09 65.49% 7.45%);
+  --blue-20:  hwb(205.71 82.75% 3.53%);
+  --blue-10:  hwb(204.71 91.37% 1.96%);
+  --blue-5:   hwb(206.67 95.69% 0.78%);
+
+  /* =====================================================
+     COLOR — Grey ramp (cool slate, NOT neutral grey)
+     Used for secondary text, dividers, dashboards
+     ===================================================== */
+  --grey-100: hwb(222.5 47.45% 33.73%);
+  --grey-80:  hwb(222.63 58.04% 27.06%);
+  --grey-60:  hwb(222.86 68.63% 20.39%);
+  --grey-40:  hwb(222 78.82% 13.33%);
+  --grey-20:  hwb(222 89.41% 6.67%);
+  --grey-10:  hwb(225 94.9% 3.53%);
+  --grey-5:   hwb(220 97.25% 1.57%);
+
+  /* =====================================================
+     COLOR — Green ramp (Cheques sub-brand + success)
+     ===================================================== */
+  --green-100: hwb(122.42 29.8% 31.37%);
+  --green-80:  hwb(122.28 43.92% 25.1%);
+  --green-60:  hwb(122.03 58.04% 18.82%);
+  --green-40:  hwb(123 71.76% 12.55%);
+  --green-20:  hwb(123 85.88% 6.27%);
+  --green-10:  hwb(120 92.94% 3.14%);
+  --green-5:   hwb(120 96.47% 1.57%);
+
+  /* =====================================================
+     COLOR — Yellow ramp (warning / caution)
+     ===================================================== */
+  --yellow-100: hwb(44.82 0% 3.92%);
+  --yellow-80:  hwb(44.69 20% 3.14%);
+  --yellow-60:  hwb(44.9 40% 2.35%);
+  --yellow-40:  hwb(44.69 60% 1.57%);
+  --yellow-20:  hwb(45.31 80% 0.78%);
+  --yellow-10:  hwb(45.6 89.8% 0.39%);
+
+  /* =====================================================
+     COLOR — Orange ramp (Partner sub-brand)
+     ===================================================== */
+  --orange-100: hwb(21.89 1.18% 3.14%);
+  --orange-80:  hwb(22.04 20.78% 2.35%);
+  --orange-60:  hwb(21.78 40.78% 1.96%);
+  --orange-40:  hwb(22.04 60.39% 1.18%);
+  --orange-20:  hwb(21.25 80.39% 0.78%);
+  --orange-10:  hwb(22.5 90.2% 0.39%);
+
+  /* =====================================================
+     COLOR — Red ramp (error / destructive)
+     ===================================================== */
+  --red-100: hwb(357.26 20% 2.75%);
+  --red-80:  hwb(357.32 36.08% 2.35%);
+  --red-60:  hwb(357.46 52.16% 1.57%);
+  --red-40:  hwb(356.96 67.84% 1.18%);
+  --red-20:  hwb(357 83.92% 0.39%);
+  --red-10:  hwb(0 92.16% 0.39%);
+
+  /* =====================================================
+     COLOR — Main_UI (named accent palette)
+     These are the human-named colors the Figma library
+     references in components — keep these names verbatim.
+     ===================================================== */
+  --c-white:             hwb(0 100% 0%);
+  --c-blue-sapphire:     hwb(205.95 8.63% 47.84%);   /* hover/active for primary */
+  --c-bright-navy-blue:  hwb(205.86 13.33% 18.43%);   /* = --pe-primary */
+  --c-alice-blue:        hwb(207 92.16% 0%);   /* row hover, info banners */
+  --c-mughal-green:      hwb(121.9 19.22% 56.08%);   /* deep success */
+  --c-middle-green:      hwb(122.42 29.8% 31.37%);   /* = --green-100 */
+  --c-honeydew:          hwb(124.29 94.51% 0%);   /* success banner bg */
+  --c-independence:      hwb(210 28.24% 63.92%);   /* dark slate text */
+  --c-yellow:            hwb(44.82 0% 3.92%);
+  --c-orange-yellow:     hwb(44.78 45.1% 2.35%);
+  --c-smokey-topaz:      hwb(22.11 0.78% 47.06%);   /* deep orange */
+  --c-willpower-orange:  hwb(21.89 1.18% 3.14%);   /* = --orange-100 */
+  --c-light-salmon:      hwb(22.11 45.88% 1.96%);
+  --c-red-brown:         hwb(357.12 12.94% 38.04%);   /* deep error */
+  --c-deep-carmine-pink: hwb(357.26 20% 2.75%);   /* = --red-100 */
+  --c-light-salmon-pink: hwb(357.22 56.08% 1.57%);
+  --c-tyrian-purple:     hwb(328.5 0% 52.94%);
+  --c-red-purple:        hwb(328.64 0% 13.73%);
+  --c-cyclamen:          hwb(328.5 45.1% 7.84%);
+  --c-maastricht-blue:   hwb(222.5 2.35% 78.82%);   /* near-black navy */
+  --c-royal-blue:        hwb(222.47 3.92% 61.18%);   /* deep navy */
+  --c-shadow-blue:       hwb(222.5 47.45% 33.73%);   /* = --grey-100 (slate) */
+  --c-background:        hwb(205.71 95.69% 1.57%);   /* page background */
+  --c-viewport-bg:       hwb(205.71 95.69% 1.57%);   /* alias */
+  --c-hover-button:      hwb(206.5 50.2% 2.75%);
+  --c-hover-button-text: hwb(205.95 21.96% 5.49%);
+
+  /* =====================================================
+     COLOR — Neutral palette (true grey)
+     Note: tokens define ONLY these 5 neutral steps.
+     ===================================================== */
+  --neutral-white:        hwb(0 100% 0%);
+  --neutral-white-smoke:  hwb(0 97.25% 2.75%);
+  --neutral-gray-77:      hwb(0 76.86% 23.14%);
+  --neutral-black:        hwb(0 26.67% 73.33%);   /* "the black we use in most UI text" */
+  --neutral-rich-black:   hwb(0 0% 100%);
+
+  /* =====================================================
+     COLOR — Semantic aliases (NOT in token file —
+     these are local conveniences mapped to brand tokens)
+     ===================================================== */
+  --bg-page:        var(--c-background);
+  --bg-surface:     var(--c-white);
+  --bg-surface-2:   var(--neutral-white-smoke);
+  --bg-banner:      var(--pe-primary);
+  --bg-banner-hero: linear-gradient(135deg, var(--c-maastricht-blue) 0%, var(--pe-primary) 100%);
+
+  --fg-primary:    var(--neutral-black);     /* body */
+  --fg-secondary:  var(--grey-100);          /* secondary slate */
+  --fg-muted:      var(--neutral-gray-77);
+  --fg-on-brand:   var(--c-white);
+  --fg-link:       var(--pe-primary);
+  --fg-heading:    var(--c-blue-sapphire);   /* deep blue for guideline headings */
+
+  --border-subtle: var(--grey-20);
+  --border-input:  var(--neutral-gray-77);
+  --border-focus:  var(--pe-primary);
+  --border-error:  var(--red-100);
+
+  --status-success: var(--green-100);
+  --status-warning: var(--yellow-100);
+  --status-error:   var(--red-100);
+  --status-info:    var(--blue-100);
+
+  /* =====================================================
+     TYPOGRAPHY
+     FontFamily — only "Open Sans" exists in tokens.
+     Weights — 300, 400, 600, 700 (no 500 / 800).
+     ===================================================== */
+  --font-sans: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* FontSize tokens — verbatim from Global.FontSize */
+  --fs-8:   8px;
+  --fs-10:  10px;
+  --fs-12:  12px;
+  --fs-14:  14px;
+  --fs-16:  16px;
+  --fs-18:  18px;
+  --fs-20:  20px;
+  --fs-24:  24px;
+  --fs-26:  26px;
+  --fs-30:  30px;
+  --fs-36:  36px;
+  --fs-50:  50px;
+
+  /* FontWeight tokens — only these four exist in the file */
+  --fw-300: 300;
+  --fw-400: 400;
+  --fw-600: 600;
+  --fw-700: 700;
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* FontStyle */
+  --fstyle-normal: normal;
+  --fstyle-italic: italic;
+
+  /* LineHeight — token defines a single "Normal" value */
+  --lh-normal: normal;
+
+  /* Letter-spacing — observed across the library, not in tokens */
+  --tracking-tight:  -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.08em;
+
+  /* Semantic role aliases (map to fs tokens above) */
+  --fs-display:  var(--fs-50);
+  --fs-h1:       var(--fs-36);
+  --fs-h2:       var(--fs-30);
+  --fs-h3:       var(--fs-26);
+  --fs-h4:       var(--fs-24);
+  --fs-h5:       var(--fs-20);
+  --fs-h6:       var(--fs-18);
+  --fs-body-lg:  var(--fs-16);
+  --fs-body:     var(--fs-14);
+  --fs-caption:  var(--fs-12);
+  --fs-micro:    var(--fs-10);
+  --fs-nano:     var(--fs-8);
+
+  /* =====================================================
+     SPACING — Padding + Gap (combined token scale)
+     Padding tokens: 1,2,3,5,10,12,15,20,25,30,35,40,50,60,100,180
+     Gap tokens:     0,1,2,3,4,5,10,15,20,25,30,40,50,80,100,150,200
+     ===================================================== */
+  --space-0:   0;
+  --space-1:   1px;
+  --space-2:   2px;
+  --space-3:   3px;
+  --space-4:   4px;
+  --space-5:   5px;
+  --space-10:  10px;
+  --space-12:  12px;
+  --space-15:  15px;
+  --space-20:  20px;
+  --space-25:  25px;
+  --space-30:  30px;
+  --space-35:  35px;
+  --space-40:  40px;
+  --space-50:  50px;
+  --space-60:  60px;
+  --space-80:  80px;
+  --space-100: 100px;
+  --space-150: 150px;
+  --space-180: 180px;
+  --space-200: 200px;
+
+  /* =====================================================
+     RADIUS — verbatim from Global.Radius
+     ===================================================== */
+  --radius-0:        0;
+  --radius-1:        1px;
+  --radius-2:        2px;
+  --radius-3:        3px;
+  --radius-4:        4px;
+  --radius-5:        5px;     /* default — buttons, inputs, chips */
+  --radius-6:        6px;
+  --radius-8:        8px;
+  --radius-10:       10px;
+  --radius-12:       12px;
+  --radius-15:       15px;    /* avatars (50×50) */
+  --radius-20:       20px;
+  --radius-25:       25px;
+  --radius-30:       30px;
+  --radius-40:       40px;
+  --radius-circular: 9999px;  /* token "Circular" */
+  --radius-none:     0;
+
+  /* =====================================================
+     STROKE — line weights (Global.Stroke)
+     0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5,
+     7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5
+     Most-used aliases below — full set available.
+     ===================================================== */
+  --stroke-0_5:  0.5px;
+  --stroke-1:    1px;
+  --stroke-1_5:  1.5px;     /* outline buttons, light icons */
+  --stroke-2:    2px;       /* solid icons */
+  --stroke-2_5:  2.5px;
+  --stroke-3:    3px;
+  --stroke-4:    4px;
+  --stroke-5:    5px;
+  --stroke-6:    6px;
+  --stroke-8:    8px;
+  --stroke-10:   10px;
+
+  /* =====================================================
+     OPACITY — Global.Opacity (percent steps)
+     ===================================================== */
+  --opacity-20:  0.20;
+  --opacity-40:  0.40;
+  --opacity-50:  0.50;
+  --opacity-70:  0.70;
+  --opacity-80:  0.80;
+  --opacity-100: 1.00;
+
+  /* =====================================================
+     ARTBOARD widths — Global.Artboard breakpoints
+     ===================================================== */
+  --artboard-335:  335px;
+  --artboard-375:  375px;
+  --artboard-568:  568px;
+  --artboard-575:  575px;
+  --artboard-667:  667px;
+  --artboard-768:  768px;
+  --artboard-920:  920px;
+  --artboard-1024: 1024px;
+  --artboard-1080: 1080px;
+  --artboard-1440: 1440px;
+  --artboard-1920: 1920px;
+
+  /* =====================================================
+     AVATAR — Global.avatar (literal token group)
+     ===================================================== */
+  --avatar-w:  50px;
+  --avatar-h:  50px;
+  --avatar-radius:  15px;
+  --avatar-mg-y:    10px;
+  --avatar-mg-x:    20px;
+
+  /* =====================================================
+     SHADOWS / EFFECTS — small & soft (tokens give blur
+     primitives 0/2/5/10; recipes below combine them).
+     ===================================================== */
+  --shadow-sm:         0 1px 2px hwb(0 0% 100% / 0.06);
+  --shadow-card:       0 1px 2px hwb(0 0% 100% / 0.06), 0 2px 8px hwb(0 0% 100% / 0.04);
+  --shadow-card-hover: 0 4px 12px hwb(0 0% 100% / 0.08);
+  --shadow-elevated:   0 4px 16px hwb(0 0% 100% / 0.10);
+  --shadow-floating:   0 8px 24px hwb(0 0% 100% / 0.12);
+  --shadow-focus:      0 0 0 3px hwb(205.86 13.33% 18.43% / 0.25);
+  --shadow-focus-error:0 0 0 3px hwb(357.26 20% 2.75% / 0.25);
+
+  /* =====================================================
+     LAYOUT shells (app chrome — observed in Workspace)
+     ===================================================== */
+  --header-h:    64px;
+  --sidebar-w:   240px;
+  --sidebar-w-collapsed: 60px;
+  --content-max: 1600px;
+  --gutter-page: 160px;
+
+  /* =====================================================
+     MOTION — observed in Buttons / Hover specs
+     ===================================================== */
+  --ease-standard: cubic-bezier(.2,.0,.2,1);
+  --dur-fast:  120ms;
+  --dur:       180ms;
+  --dur-slow:  280ms;
+
+  /* =====================================================
+     LEGACY ALIASES — keep so previously-shipped pages
+     don't break. New work should use the token names.
+     ===================================================== */
+  --pe-blue:        var(--pe-primary);
+  --pe-blue-tint:   var(--c-alice-blue);
+  --pe-blue-dark:   var(--c-blue-sapphire);
+  --pe-blue-darker: var(--c-maastricht-blue);
+  --pe-blue-soft:   var(--blue-60);
+  --pe-blue-deep:   var(--c-blue-sapphire);
+  --pe-green:       var(--green-100);
+  --pe-green-dark:  var(--c-mughal-green);
+  --pe-green-tint:  var(--c-honeydew);
+  --pe-orange:      var(--orange-100);
+  --pe-orange-tint: var(--c-light-salmon);
+  --pe-orange-dark: var(--c-smokey-topaz);
+
+  --color-warning:      var(--yellow-100);
+  --color-warning-tint: var(--c-orange-yellow);
+  --color-danger:       var(--red-100);
+  --color-danger-tint:  var(--c-light-salmon-pink);
+  --color-danger-dark:  var(--c-red-brown);
+  --color-magenta:      var(--c-red-purple);
+  --color-magenta-tint: var(--c-cyclamen);
+  --color-magenta-dark: var(--c-tyrian-purple);
+  --color-navy:         var(--c-royal-blue);
+  --color-navy-deep:    var(--c-maastricht-blue);
+
+  --white: var(--c-white);
+  --black: var(--neutral-rich-black);
+  --ink:   var(--neutral-black);
+}
+
+/* ---------------- Semantic element styles ---------------- */
+html { font-family: var(--font-sans); color: var(--fg-primary); }
+body { font-family: var(--font-sans); color: var(--fg-primary); background: var(--bg-page); margin: 0; }
+
+/* Headings — token-only weights & sizes */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-heading);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-normal);
+}
+h1 { font-size: var(--fs-50); font-weight: var(--fw-bold); color: var(--c-white); }
+h2 { font-size: var(--fs-36); }
+h3 { font-size: var(--fs-30); }
+h4 { font-size: var(--fs-26); font-weight: var(--fw-regular); color: var(--ink); }
+h5 { font-size: var(--fs-20); font-weight: var(--fw-semibold); color: var(--ink); letter-spacing: var(--tracking-tight); }
+h6 { font-size: var(--fs-18); font-weight: var(--fw-semibold); color: var(--ink); }
+
+p { margin: 0; font-size: var(--fs-body); line-height: 1.5; color: var(--fg-primary); }
+small, .caption { font-size: var(--fs-caption); color: var(--fg-secondary); }
+.eyebrow { font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--fg-secondary); font-weight: var(--fw-semibold); }
+code, kbd, pre { font-family: var(--font-mono); font-size: 13px; }
+
+a { color: var(--fg-link); text-decoration: none; }
+a:hover { color: var(--c-blue-sapphire); text-decoration: underline; }
+
+hr { border: 0; border-top: 1px solid var(--border-subtle); margin: var(--space-25) 0; }
+
+::selection { background: hwb(205.86 13.33% 18.43% / 0.25); }

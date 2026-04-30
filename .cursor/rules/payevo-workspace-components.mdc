@@ -1,0 +1,17 @@
+---
+description: Reuse workspace kit components and app shell patterns
+globs: PayEvo Design System/ui_kits/workspace/**/*.{html,jsx}
+alwaysApply: true
+---
+
+# Workspace Component Reuse
+
+- Reuse `TopHeader`, `Sidebar`, `Btn`, `Badge`, `HeroBand`, `Icon`, `PELogo`, and `PEWordmark` from the workspace kit whenever possible.
+- Keep workspace layout structure consistent with the shell pattern:
+  - `app-shell`
+  - `TopHeader`
+  - `app-body`
+  - `Sidebar`
+  - `main.app-main`
+- Keep interactions and states consistent with current variants before adding a new variant.
+- Keep icon usage aligned with the existing Lucide mapping and current color-state behavior.

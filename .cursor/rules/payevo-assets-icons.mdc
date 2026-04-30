@@ -1,0 +1,13 @@
+---
+description: Enforce PayEvo asset and iconography conventions
+globs: **/*.{html,jsx,tsx,svg}
+alwaysApply: true
+---
+
+# Assets and Iconography
+
+- Use logos and product marks from `PayEvo Design System/assets/logos/`.
+- Use Lucide icons as the default implementation unless a licensed Font Awesome Pro setup is provided.
+- Icons should inherit `currentColor` and follow documented size and state color guidance.
+- Do not mix in unrelated icon libraries without explicit user approval.
+- Avoid decorative imagery that conflicts with documented Storyset and PayEvo patterns.
