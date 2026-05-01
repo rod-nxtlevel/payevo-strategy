@@ -123,16 +123,7 @@ const BusinessBasics = ({ ctx, go }) => {
     "Date of incorporation";
   return (
     <Card width="default" eyebrow="Step 1 · Business" title="Tell us about your business" sub="We'll use this to pre-fill what we can and skip the rest.">
-      {isFedCorp && (
-        <div style={{ marginBottom: 20 }}>
-          <Banner kind="success" title="We found your registration with Corporations Canada">
-            <strong>Acme Construction Ltd.</strong> · Federal Corporation #87654321 · Active. We've pre-filled your registered name and head-office address.
-          </Banner>
-        </div>
-      )}
       <div className="pe-stack-lg">
-        <Field label="Legal business name" required><input className="pe-input" defaultValue="Acme Construction Ltd"/></Field>
-        <Field label="Operating name / DBA" hint="If different from legal name."><input className="pe-input" placeholder="e.g. Acme Builds"/></Field>
         <div className="pe-field-row">
           <Field label="Business type" required>
             <select className="pe-select" value={ctx.bizType} onChange={e => ctx.set({ bizType: e.target.value })}>
@@ -145,6 +136,13 @@ const BusinessBasics = ({ ctx, go }) => {
           </Field>
           <Field label={dateLabel}><input className="pe-input" defaultValue="2018-04-12" type="date"/></Field>
         </div>
+        <Field label="Legal business name" required><input className="pe-input" defaultValue="Acme Construction Ltd"/></Field>
+        <Field label="Operating name / DBA" hint="If different from legal name."><input className="pe-input" placeholder="e.g. Acme Builds"/></Field>
+        {isFedCorp && (
+          <Banner kind="success" title="We found your registration with Corporations Canada">
+            <strong>Acme Construction Ltd.</strong> · Federal Corporation #87654321 · Active. We've pre-filled your registered name and head-office address.
+          </Banner>
+        )}
         <div className="pe-field-row">
           <Field label="Company phone" required><input className="pe-input" defaultValue="(416) 555-0142"/></Field>
           <Field label="Number of employees" required>

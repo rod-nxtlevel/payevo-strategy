@@ -41,6 +41,14 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 const __TWEAKS_STYLE = `
+  .twk-launch{position:fixed;right:16px;bottom:16px;z-index:2147483645;
+    height:34px;padding:0 12px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.78);color:#fff;font:12px/1.2 ui-sans-serif,system-ui,-apple-system,sans-serif;
+    font-weight:600;letter-spacing:.01em;cursor:pointer;
+    box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .twk-launch:hover{background:rgba(0,0,0,.88)}
+  @media print{.twk-launch{display:none!important}}
+
   .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
     max-height:calc(100vh - 32px);display:flex;flex-direction:column;
     background:rgba(250,249,247,.78);color:#29261b;
@@ -204,6 +212,11 @@ function TweaksPanel({ title = 'Tweaks', children }) {
     setOpen(false);
     window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
   };
+  const openPanel = () => {
+    setOpen(true);
+    // Best effort: keep host toolbar state in sync when available.
+    window.parent.postMessage({ type: '__activate_edit_mode' }, '*');
+  };
 
   const onDragStart = (e) => {
     const panel = dragRef.current;
@@ -227,7 +240,14 @@ function TweaksPanel({ title = 'Tweaks', children }) {
     window.addEventListener('mouseup', up);
   };
 
-  if (!open) return null;
+  if (!open) {
+    return (
+      <>
+        <style>{__TWEAKS_STYLE}</style>
+        <button type="button" className="twk-launch" onClick={openPanel}>Tweaks</button>
+      </>
+    );
+  }
   return (
     <>
       <style>{__TWEAKS_STYLE}</style>
